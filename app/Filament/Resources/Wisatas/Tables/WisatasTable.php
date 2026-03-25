@@ -1,0 +1,57 @@
+<?php
+
+namespace App\Filament\Resources\Wisatas\Tables;
+
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
+
+class WisatasTable
+{
+    public static function configure(Table $table): Table
+    {
+        return $table
+            ->columns([
+                TextColumn::make('id')
+                    ->label('ID')
+                    ->searchable(),
+                TextColumn::make('nama')
+                    ->searchable(),
+                TextColumn::make('slug')
+                    ->searchable(),
+                TextColumn::make('lokasi')
+                    ->searchable(),
+                TextColumn::make('kecamatan')
+                    ->searchable(),
+                TextColumn::make('foto_utama')
+                    ->searchable(),
+                TextColumn::make('koordinat_lat')
+                    ->numeric()
+                    ->sortable(),
+                TextColumn::make('koordinat_lng')
+                    ->numeric()
+                    ->sortable(),
+                TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+            ])
+            ->filters([
+                //
+            ])
+            ->recordActions([
+                EditAction::make(),
+            ])
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
+                ]),
+            ]);
+    }
+}
