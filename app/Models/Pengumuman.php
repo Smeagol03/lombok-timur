@@ -15,6 +15,8 @@ class Pengumuman extends Model implements HasMedia
 {
     use HasSlug, InteractsWithMedia, Searchable, SoftDeletes;
 
+    protected $table = 'pengumumans';
+
     protected $keyType = 'string';
 
     public $incrementing = false;

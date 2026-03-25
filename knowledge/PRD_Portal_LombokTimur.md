@@ -394,20 +394,23 @@ resources/
 - [x] Setup Filament v5 + Spatie packages
 - [x] Install Laravel Scout (Database Driver)
 - [x] Install Maatwebsite Excel
-- [ ] Buat layout utama (navbar, footer)
-- [ ] Setup database migrations & seeders
-- [ ] Konfigurasi Redis & storage
+- [x] Setup database migrations (10 tabel)
+- [x] Buat Eloquent models (10 models)
+- [x] Buat Filament Resources (10 resources)
+- [x] Buat seeders (User, Kategori, Layanan, StokDarah)
+- [x] Buat layout utama (navbar, footer)
+- [x] Konfigurasi storage (public disk, media library)
 
 ### Fase 2 — Halaman Beranda (1.5 minggu)
-- [ ] Komponen HeroSlider (Livewire + Swiper.js)
-- [ ] Stats Bar (statis / API)
-- [ ] Quick Access Grid
-- [ ] Section Berita Terbaru
-- [ ] Section Agenda Kegiatan (tabs)
-- [ ] Section Pengumuman
-- [ ] Section Harga Pokok + Stok Darah
-- [ ] Section Wisata Gallery
-- [ ] Footer lengkap
+- [x] Komponen HeroSlider (Livewire + Swiper.js)
+- [x] Stats Bar (statis / API)
+- [x] Quick Access Grid
+- [x] Section Berita Terbaru
+- [x] Section Agenda Kegiatan (tabs)
+- [x] Section Pengumuman
+- [x] Section Harga Pokok + Stok Darah
+- [x] Section Wisata Gallery
+- [x] Footer lengkap
 
 ### Fase 3 — Halaman Dalam (1.5 minggu)
 - [ ] Halaman Berita (index + detail)
@@ -420,7 +423,7 @@ resources/
 - [ ] Halaman Pencarian global
 
 ### Fase 4 — Admin Panel (1 minggu)
-- [ ] Semua Filament Resources
+- [x] Semua Filament Resources (10 resources)
 - [ ] Role & permission setup
 - [ ] Dashboard widgets
 - [ ] Import/export Excel (harga pokok)

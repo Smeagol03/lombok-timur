@@ -14,6 +14,8 @@ class Layanan extends Model implements HasMedia
 {
     use HasSlug, InteractsWithMedia, Searchable;
 
+    protected $table = 'layanans';
+
     protected $keyType = 'string';
 
     public $incrementing = false;

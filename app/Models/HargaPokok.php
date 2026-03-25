@@ -7,6 +7,8 @@ use Illuminate\Support\Str;
 
 class HargaPokok extends Model
 {
+    protected $table = 'harga_poks';
+
     protected $keyType = 'string';
 
     public $incrementing = false;

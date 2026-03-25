@@ -11,6 +11,8 @@ class Kategori extends Model
 {
     use HasSlug;
 
+    protected $table = 'kategoris';
+
     protected $fillable = ['nama', 'slug', 'warna'];
 
     public function getSlugOptions(): SlugOptions

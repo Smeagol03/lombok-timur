@@ -11,6 +11,8 @@ class SliderHero extends Model implements HasMedia
 {
     use InteractsWithMedia;
 
+    protected $table = 'slider_heros';
+
     protected $keyType = 'string';
 
     public $incrementing = false;

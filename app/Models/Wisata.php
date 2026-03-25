@@ -14,6 +14,8 @@ class Wisata extends Model implements HasMedia
 {
     use HasSlug, InteractsWithMedia, Searchable;
 
+    protected $table = 'wisatas';
+
     protected $keyType = 'string';
 
     public $incrementing = false;

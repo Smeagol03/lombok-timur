@@ -11,6 +11,8 @@ class Agenda extends Model implements HasMedia
 {
     use InteractsWithMedia;
 
+    protected $table = 'agendas';
+
     protected $keyType = 'string';
 
     public $incrementing = false;

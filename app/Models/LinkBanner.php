@@ -11,6 +11,8 @@ class LinkBanner extends Model implements HasMedia
 {
     use InteractsWithMedia;
 
+    protected $table = 'link_banners';
+
     protected $keyType = 'string';
 
     public $incrementing = false;

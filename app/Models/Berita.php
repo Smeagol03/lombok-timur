@@ -16,6 +16,8 @@ class Berita extends Model implements HasMedia
 {
     use HasSlug, InteractsWithMedia, Searchable, SoftDeletes;
 
+    protected $table = 'beritas';
+
     protected $keyType = 'string';
 
     public $incrementing = false;
