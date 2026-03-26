@@ -11,7 +11,7 @@
                 </p>
             </div>
         </div>
-        
+
         {{-- Content Section --}}
         <div class="py-12">
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -21,56 +21,97 @@
                         <h2 class="font-heading text-2xl font-bold text-primary mb-4">Gambaran Umum</h2>
                         <div class="prose prose-lg text-gray-600 max-w-none">
                             <p>
-                                Kabupaten Lombok Timur merupakan salah satu daerah tingkat II di Provinsi Nusa Tenggara Barat, Indonesia. 
-                                Ibu kota kabupaten ini terletak di Selong. Lombok Timur memiliki luas wilayah sekitar 1.605,55 km² 
+                                Kabupaten Lombok Timur merupakan salah satu daerah tingkat II di Provinsi Nusa Tenggara Barat, Indonesia.
+                                Ibu kota kabupaten ini terletak di Selong. Lombok Timur memiliki luas wilayah sekitar 1.605,55 km²
                                 dengan jumlah penduduk lebih dari 1,3 juta jiwa.
                             </p>
                             <p>
-                                Kabupaten ini terdiri dari 20 kecamatan dan memiliki potensi ekonomi yang beragam, mulai dari pertanian, 
-                                pariwisata, hingga perikanan. Salah satu destinasi wisata terkenal di Lombok Timur adalah Gunung Rinjani 
+                                Kabupaten ini terdiri dari 20 kecamatan dan memiliki potensi ekonomi yang beragam, mulai dari pertanian,
+                                pariwisata, hingga perikanan. Salah satu destinasi wisata terkenal di Lombok Timur adalah Gunung Rinjani
                                 yang merupakan gunung berapi tertinggi kedua di Indonesia.
                             </p>
                         </div>
                     </section>
-                    
-                    {{-- Vision & Mission --}}
-                    <section class="mb-12">
-                        <h2 class="font-heading text-2xl font-bold text-primary mb-4">Visi & Misi</h2>
-                        
-                        <div class="bg-gray-50 rounded-lg p-6 mb-6">
-                            <h3 class="font-heading text-xl font-bold text-gray-900 mb-3">Visi</h3>
-                            <p class="text-gray-600 italic">
-                                "Terwujudnya Kabupaten Lombok Timur yang Maju, Mandiri, dan Berkeadilan"
-                            </p>
+
+                    {{-- Vision & Mission - Swiss Style --}}
+                    <section class="mb-24">
+                        {{-- Section Header: Swiss Layout --}}
+                        <div class="flex flex-col md:flex-row items-baseline gap-4 border-b-4 border-primary pb-6 mb-16">
+                            <span class="font-heading text-6xl md:text-8xl font-black text-primary/10 leading-none select-none">01</span>
+                            <div class="flex flex-col">
+                                <h2 class="font-heading text-4xl md:text-6xl font-black text-primary uppercase tracking-tighter leading-none">Visi <span class="text-accent">&</span> Misi</h2>
+                                <p class="text-gray-500 font-medium mt-2 tracking-widest uppercase text-xs">Kabupaten Lombok Timur / Arah Pembangunan</p>
+                            </div>
                         </div>
-                        
-                        <div class="bg-gray-50 rounded-lg p-6">
-                            <h3 class="font-heading text-xl font-bold text-gray-900 mb-3">Misi</h3>
-                            <ul class="space-y-3 text-gray-600">
-                                <li class="flex items-start gap-3">
-                                    <span class="flex-shrink-0 w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold">1</span>
-                                    <span>Meningkatkan kualitas sumber daya manusia yang berdaya saing</span>
-                                </li>
-                                <li class="flex items-start gap-3">
-                                    <span class="flex-shrink-0 w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold">2</span>
-                                    <span>Mewujudkan perekonomian yang mandiri berbasis pertanian dan pariwisata</span>
-                                </li>
-                                <li class="flex items-start gap-3">
-                                    <span class="flex-shrink-0 w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold">3</span>
-                                    <span>Meningkatkan kualitas pelayanan publik yang profesional</span>
-                                </li>
-                                <li class="flex items-start gap-3">
-                                    <span class="flex-shrink-0 w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold">4</span>
-                                    <span>Memperkuat tata kelola pemerintahan yang baik dan bersih</span>
-                                </li>
-                                <li class="flex items-start gap-3">
-                                    <span class="flex-shrink-0 w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold">5</span>
-                                    <span>Meningkatkan pembangunan infrastruktur yang merata</span>
-                                </li>
-                            </ul>
+
+                        {{-- Vision: Asymmetric Typography --}}
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-14 md:mb-24 items-start">
+                            <div class="lg:col-span-4 border-l-2 border-accent pl-6">
+                                <h3 class="font-heading text-sm font-bold uppercase tracking-[0.3em] text-accent mb-4">Visi Utama Daerah</h3>
+                                <p class="text-gray-500 text-sm leading-relaxed">
+                                    Sebuah pernyataan tujuan jangka panjang yang menjadi kompas dalam setiap kebijakan dan langkah strategis pemerintahan.
+                                </p>
+                            </div>
+                            <div class="lg:col-span-8">
+                                <p class="font-heading text-3xl md:text-6xl font-black text-primary leading-[0.9] tracking-tighter">
+                                    TERWUJUDNYA KABUPATEN LOMBOK TIMUR YANG <span class="text-accent">MAJU</span>, <span class="text-accent">MANDIRI</span>, DAN <span class="text-accent">BERKEADILAN</span>.
+                                </p>
+                            </div>
+                        </div>
+
+                        {{-- Mission: Grid-based Systematic List --}}
+                        <div class="border-t border-gray-200">
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                                {{-- Mission 1 --}}
+                                <div class="border-b border-gray-200 md:border-r p-8 md:p-12 hover:bg-primary group transition-colors duration-300">
+                                    <span class="block font-heading text-xs font-bold text-accent mb-12 group-hover:text-white/60 tracking-[0.2em] uppercase">Misi — 01</span>
+                                    <h4 class="font-heading text-2xl font-black text-primary mb-6 group-hover:text-white leading-tight uppercase tracking-tight">Kualitas SDM</h4>
+                                    <p class="text-gray-600 group-hover:text-white/80 leading-relaxed text-sm">
+                                        Meningkatkan kualitas sumber daya manusia yang berdaya saing melalui penguatan sistem pendidikan dan kesehatan.
+                                    </p>
+                                </div>
+
+                                {{-- Mission 2 --}}
+                                <div class="border-b border-gray-200 lg:border-r p-8 md:p-12 hover:bg-primary group transition-colors duration-300">
+                                    <span class="block font-heading text-xs font-bold text-accent mb-12 group-hover:text-white/60 tracking-[0.2em] uppercase">Misi — 02</span>
+                                    <h4 class="font-heading text-2xl font-black text-primary mb-6 group-hover:text-white leading-tight uppercase tracking-tight">Kemandirian Ekonomi</h4>
+                                    <p class="text-gray-600 group-hover:text-white/80 leading-relaxed text-sm">
+                                        Mewujudkan perekonomian yang mandiri berbasis pada sektor unggulan pertanian dan pariwisata daerah.
+                                    </p>
+                                </div>
+
+                                {{-- Mission 3 --}}
+                                <div class="border-b border-gray-200 md:border-r lg:border-r-0 p-8 md:p-12 hover:bg-primary group transition-colors duration-300">
+                                    <span class="block font-heading text-xs font-bold text-accent mb-12 group-hover:text-white/60 tracking-[0.2em] uppercase">Misi — 03</span>
+                                    <h4 class="font-heading text-2xl font-black text-primary mb-6 group-hover:text-white leading-tight uppercase tracking-tight">Pelayanan Publik</h4>
+                                    <p class="text-gray-600 group-hover:text-white/80 leading-relaxed text-sm">
+                                        Meningkatkan kualitas pelayanan publik yang profesional, transparan, dan akuntabel bagi seluruh masyarakat.
+                                    </p>
+                                </div>
+
+                                {{-- Mission 4 --}}
+                                <div class="border-b border-gray-200 lg:border-r p-8 md:p-12 hover:bg-primary group transition-colors duration-300">
+                                    <span class="block font-heading text-xs font-bold text-accent mb-12 group-hover:text-white/60 tracking-[0.2em] uppercase">Misi — 04</span>
+                                    <h4 class="font-heading text-2xl font-black text-primary mb-6 group-hover:text-white leading-tight uppercase tracking-tight">Tata Kelola</h4>
+                                    <p class="text-gray-600 group-hover:text-white/80 leading-relaxed text-sm">
+                                        Memperkuat tata kelola pemerintahan yang baik dan bersih (Good & Clean Governance).
+                                    </p>
+                                </div>
+
+                                {{-- Mission 5 --}}
+                                <div class="border-b border-gray-200 md:border-r p-8 md:p-12 hover:bg-primary group transition-colors duration-300 lg:col-span-2">
+                                    <div class="max-w-md">
+                                        <span class="block font-heading text-xs font-bold text-accent mb-12 group-hover:text-white/60 tracking-[0.2em] uppercase">Misi — 05</span>
+                                        <h4 class="font-heading text-2xl font-black text-primary mb-6 group-hover:text-white leading-tight uppercase tracking-tight">Pembangunan Infrastruktur</h4>
+                                        <p class="text-gray-600 group-hover:text-white/80 leading-relaxed text-sm">
+                                            Meningkatkan pembangunan infrastruktur yang merata dan berkualitas di seluruh wilayah Kabupaten Lombok Timur.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </section>
-                    
+
                     {{-- Quick Stats --}}
                     <section class="mb-12">
                         <h2 class="font-heading text-2xl font-bold text-primary mb-6">Data Umum</h2>
@@ -98,7 +139,7 @@
                             </div>
                         </div>
                     </section>
-                    
+
                     {{-- Contact Info --}}
                     <section>
                         <h2 class="font-heading text-2xl font-bold text-primary mb-4">Kontak</h2>
