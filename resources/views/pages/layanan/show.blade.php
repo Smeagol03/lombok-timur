@@ -69,20 +69,12 @@
                     @endif
                     
                     {{-- Related Services --}}
-                    @php
-                    $relatedServices = \App\Models\Layanan::active()
-                        ->where('id', '!=', $layanan->id)
-                        ->where('dinas_terkait', $layanan->dinas_terkait)
-                        ->take(3)
-                        ->get();
-                    @endphp
-                    
-                    @if($relatedServices->count() > 0)
+                    @if(isset($relatedServices) && $relatedServices->count() > 0)
                     <div class="mt-10 pt-6 border-t border-gray-100">
                         <h3 class="font-heading text-xl font-bold text-primary mb-6">Layanan Terkait</h3>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                             @foreach($relatedServices as $related)
-                            <a href="{{ url('/layanan/'.$related->slug) }}" 
+                            <a href="{{ url('/layanan/'.$related->slug) }}"
                                class="p-4 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors">
                                 <h4 class="font-heading font-semibold text-gray-900 hover:text-accent transition-colors">
                                     {{ $related->nama }}

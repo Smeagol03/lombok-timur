@@ -81,4 +81,19 @@ class Wisata extends Model implements HasMedia
     {
         return $query->where('kecamatan', $kecamatan);
     }
+
+    /**
+     * Get related tourism in the same kecamatan
+     */
+    public function getRelatedWisata(int $limit = 3)
+    {
+        if (empty($this->kecamatan)) {
+            return static::where('id', '!=', $this->id)->limit($limit)->get();
+        }
+
+        return static::where('id', '!=', $this->id)
+            ->where('kecamatan', $this->kecamatan)
+            ->limit($limit)
+            ->get();
+    }
 }

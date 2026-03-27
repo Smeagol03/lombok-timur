@@ -91,14 +91,8 @@
         </div>
         
         {{-- Related Tourism --}}
-        @php
-        $relatedWisata = \App\Models\Wisata::where('id', '!=', $wisata->id)
-            ->where('kecamatan', $wisata->kecamatan)
-            ->take(3)
-            ->get();
-        @endphp
         
-        @if($relatedWisata->count() > 0)
+        @if(isset($relatedWisata) && $relatedWisata->count() > 0)
         <div class="pb-16">
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 <h3 class="font-heading text-xl font-bold text-primary mb-6">Wisata Lainnya di {{ $wisata->kecamatan }}</h3>

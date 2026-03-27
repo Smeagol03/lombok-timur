@@ -99,4 +99,17 @@ class Berita extends Model implements HasMedia
     {
         return $query->where('is_featured', true);
     }
+
+    /**
+     * Get related news based on category
+     */
+    public function getRelatedNews(int $limit = 3)
+    {
+        return static::published()
+            ->where('id', '!=', $this->id)
+            ->where('kategori_id', $this->kategori_id)
+            ->latest('published_at')
+            ->limit($limit)
+            ->get();
+    }
 }

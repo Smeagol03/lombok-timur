@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(do)",
+      "Bash(then)",
+      "Bash(sed *)",
+      "Bash(fi)",
+      "Bash(done)"
+    ]
+  },
+  "$version": 3
+}

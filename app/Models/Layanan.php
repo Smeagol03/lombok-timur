@@ -80,4 +80,21 @@ class Layanan extends Model implements HasMedia
     {
         return $query->orderBy('urutan');
     }
+
+    /**
+     * Get related services based on dinas terkait
+     */
+    public function getRelatedServices(int $limit = 3)
+    {
+        if (empty($this->dinas_terkait)) {
+            return static::active()->ordered()->where('id', '!=', $this->id)->limit($limit)->get();
+        }
+
+        return static::active()
+            ->where('id', '!=', $this->id)
+            ->where('dinas_terkait', $this->dinas_terkait)
+            ->ordered()
+            ->limit($limit)
+            ->get();
+    }
 }

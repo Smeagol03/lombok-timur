@@ -5,6 +5,7 @@ namespace App\Filament\Resources\HargaPokoks\Pages;
 use App\Exports\HargaPokokExport;
 use App\Filament\Resources\HargaPokoks\HargaPokokResource;
 use App\Imports\HargaPokokImport;
+use App\Models\HargaPokok;
 use Filament\Actions\Action;
 use Filament\Actions\CreateAction;
 use Filament\Forms\Components\FileUpload;
@@ -12,6 +13,9 @@ use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ListRecords;
 use Maatwebsite\Excel\Facades\Excel;
 
+/**
+ * @extends ListRecords<HargaPokok>
+ */
 class ListHargaPokoks extends ListRecords
 {
     protected static string $resource = HargaPokokResource::class;

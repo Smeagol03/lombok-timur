@@ -104,16 +104,7 @@
         </div>
         
         {{-- Related News --}}
-        @php
-        $relatedNews = \App\Models\Berita::published()
-            ->where('id', '!=', $berita->id)
-            ->where('kategori_id', $berita->kategori_id)
-            ->latest('published_at')
-            ->take(3)
-            ->get();
-        @endphp
-        
-        @if($relatedNews->count() > 0)
+        @if(isset($relatedNews) && $relatedNews->count() > 0)
         <div class="pb-16">
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 <h3 class="font-heading text-xl font-bold text-primary mb-6">Berita Terkait</h3>

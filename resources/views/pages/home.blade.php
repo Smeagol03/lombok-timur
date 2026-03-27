@@ -19,7 +19,7 @@
                 
                 {{-- Services Grid - 2 cols mobile, 3 tablet, 5 desktop --}}
                 <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 md:gap-6">
-                    @foreach(\App\Models\Layanan::active()->ordered()->limit(5)->get() as $layanan)
+                    @foreach($featuredServices as $layanan)
                     <a href="{{ $layanan->url_eksternal ?: url('/layanan/'.$layanan->slug) }}" 
                        class="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 shadow-sm hover:shadow-lg transition-all text-center group border border-gray-100 hover:border-accent/30">
                         <div class="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-primary/10 rounded-lg sm:rounded-xl flex items-center justify-center mx-auto mb-2 sm:mb-3 md:mb-4 group-hover:bg-accent/20 transition-colors">
