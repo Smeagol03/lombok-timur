@@ -13,12 +13,23 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class HargaPokokResource extends Resource
 {
     protected static ?string $model = HargaPokok::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedCurrencyDollar;
+
+    protected static ?string $navigationLabel = 'Harga Pokok';
+
+    protected static ?string $modelLabel = 'Harga Pokok';
+
+    protected static ?string $pluralModelLabel = 'Harga Pokok';
+
+    protected static UnitEnum|string|null $navigationGroup = 'Data';
+
+    protected static ?int $navigationSort = 1;
 
     public static function form(Schema $schema): Schema
     {

@@ -2,8 +2,10 @@
 
 namespace App\Filament\Resources\LinkBanners\Schemas;
 
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
 class LinkBannerForm
@@ -12,19 +14,40 @@ class LinkBannerForm
     {
         return $schema
             ->components([
-                TextInput::make('nama')
-                    ->required(),
-                TextInput::make('url')
-                    ->url()
-                    ->required(),
-                TextInput::make('gambar')
-                    ->required(),
-                TextInput::make('urutan')
-                    ->required()
-                    ->numeric()
-                    ->default(0),
-                Toggle::make('is_active')
-                    ->required(),
+                Section::make('Link Banner')
+                    ->schema([
+                        TextInput::make('nama')
+                            ->label('Nama')
+                            ->required()
+                            ->maxLength(255)
+                            ->placeholder('Contoh: Website Resmi KPU')
+                            ->columnSpanFull(),
+                        TextInput::make('url')
+                            ->label('URL')
+                            ->url()
+                            ->required()
+                            ->placeholder('https://...')
+                            ->columnSpanFull(),
+                        FileUpload::make('gambar')
+                            ->label('Gambar Banner')
+                            ->image()
+                            ->imageEditor()
+                            ->directory('link-banners')
+                            ->visibility('public')
+                            ->maxSize(2048)
+                            ->helperText('Ukuran maksimal 2MB')
+                            ->columnSpanFull(),
+                        TextInput::make('urutan')
+                            ->label('Urutan')
+                            ->numeric()
+                            ->default(0)
+                            ->columnSpanFull(),
+                        Toggle::make('is_active')
+                            ->label('Aktif')
+                            ->default(true)
+                            ->columnSpanFull(),
+                    ])
+                    ->columns(1),
             ]);
     }
 }

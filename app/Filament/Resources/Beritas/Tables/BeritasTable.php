@@ -8,9 +8,13 @@ use Filament\Actions\EditAction;
 use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
 use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class BeritasTable
 {
@@ -18,44 +22,80 @@ class BeritasTable
     {
         return $table
             ->columns([
-                TextColumn::make('id')
-                    ->label('ID')
-                    ->searchable(),
+                ImageColumn::make('thumbnail')
+                    ->label('Thumbnail')
+                    ->circular()
+                    ->defaultImageUrl(fn () => 'https://ui-avatars.com/api/?name=B&color=7c3aed&background=ede9fe'),
                 TextColumn::make('judul')
-                    ->searchable(),
-                TextColumn::make('slug')
-                    ->searchable(),
-                TextColumn::make('kategori.id')
-                    ->searchable(),
-                TextColumn::make('penulis.name')
-                    ->searchable(),
-                TextColumn::make('thumbnail')
-                    ->searchable(),
+                    ->label('Judul')
+                    ->searchable()
+                    ->limit(50)
+                    ->sortable(),
+                TextColumn::make('kategori.nama')
+                    ->label('Kategori')
+                    ->badge()
+                    ->color('primary')
+                    ->sortable(),
                 TextColumn::make('status')
-                    ->searchable(),
+                    ->label('Status')
+                    ->badge()
+                    ->formatStateUsing(fn (string $state): string => match ($state) {
+                        'draft' => 'Draft',
+                        'published' => 'Dipublikasi',
+                        'archived' => 'Arsip',
+                        default => $state,
+                    })
+                    ->color(fn (string $state): string => match ($state) {
+                        'draft' => 'warning',
+                        'published' => 'success',
+                        'archived' => 'gray',
+                        default => 'gray',
+                    })
+                    ->sortable(),
                 IconColumn::make('is_featured')
-                    ->boolean(),
+                    ->label('Featured')
+                    ->boolean()
+                    ->trueIcon('heroicon-o-star')
+                    ->falseIcon('heroicon-o-minus'),
                 TextColumn::make('views')
+                    ->label('Views')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                    ->formatStateUsing(fn ($state) => number_format($state)),
                 TextColumn::make('published_at')
-                    ->dateTime()
+                    ->label('Dipublikasi')
+                    ->date('d M Y')
                     ->sortable(),
+                TextColumn::make('penulis.name')
+                    ->label('Penulis')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('deleted_at')
-                    ->dateTime()
+                    ->label('Dibuat')
+                    ->dateTime('d M Y H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 TrashedFilter::make(),
+                SelectFilter::make('status')
+                    ->label('Status')
+                    ->options([
+                        'draft' => 'Draft',
+                        'published' => 'Dipublikasi',
+                        'archived' => 'Arsip',
+                    ]),
+                SelectFilter::make('kategori_id')
+                    ->label('Kategori')
+                    ->relationship('kategori', 'nama')
+                    ->searchable()
+                    ->preload(),
+                Filter::make('featured')
+                    ->label('Featured Only')
+                    ->query(fn (Builder $query): Builder => $query->where('is_featured', true)),
+                Filter::make('published')
+                    ->label('Published Only')
+                    ->query(fn (Builder $query): Builder => $query->where('status', 'published')),
             ])
             ->recordActions([
                 EditAction::make(),
@@ -66,6 +106,7 @@ class BeritasTable
                     ForceDeleteBulkAction::make(),
                     RestoreBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->defaultSort('created_at', 'desc');
     }
 }

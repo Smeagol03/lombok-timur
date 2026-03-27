@@ -13,12 +13,23 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class LinkBannerResource extends Resource
 {
     protected static ?string $model = LinkBanner::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedLink;
+
+    protected static ?string $navigationLabel = 'Link Banner';
+
+    protected static ?string $modelLabel = 'Link Banner';
+
+    protected static ?string $pluralModelLabel = 'Link Banner';
+
+    protected static UnitEnum|string|null $navigationGroup = 'Media';
+
+    protected static ?int $navigationSort = 2;
 
     public static function form(Schema $schema): Schema
     {

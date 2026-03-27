@@ -13,12 +13,23 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class AgendaResource extends Resource
 {
     protected static ?string $model = Agenda::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedCalendar;
+
+    protected static ?string $navigationLabel = 'Agenda';
+
+    protected static ?string $modelLabel = 'Agenda';
+
+    protected static ?string $pluralModelLabel = 'Agenda';
+
+    protected static UnitEnum|string|null $navigationGroup = 'Konten';
+
+    protected static ?int $navigationSort = 3;
 
     public static function form(Schema $schema): Schema
     {

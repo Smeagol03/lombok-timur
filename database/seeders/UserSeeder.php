@@ -10,10 +10,12 @@ class UserSeeder extends Seeder
 {
     public function run(): void
     {
-        User::create([
+        $user = User::create([
             'name' => 'Admin Portal',
             'email' => 'admin@lomboktimurkab.go.id',
             'password' => Hash::make('password'),
         ]);
+
+        $user->assignRole('Super Admin');
     }
 }
