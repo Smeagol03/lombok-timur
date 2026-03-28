@@ -61,5 +61,21 @@ class AppServiceProvider extends ServiceProvider
                     return response('Too many submissions. Please try again later.', 429, $headers);
                 });
         });
+
+        RateLimiter::for('filament', function (Request $request) {
+            return Limit::perMinute(60)
+                ->by($request->user()?->id ?: $request->ip())
+                ->response(function (Request $request, array $headers) {
+                    return response('Too many admin requests. Please slow down.', 429, $headers);
+                });
+        });
+
+        RateLimiter::for('login', function (Request $request) {
+            return Limit::perMinute(5)
+                ->by($request->ip())
+                ->response(function (Request $request, array $headers) {
+                    return response('Too many login attempts. Please try again later.', 429, $headers);
+                });
+        });
     }
 }

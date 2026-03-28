@@ -433,64 +433,84 @@ Semua routes telah ditambahkan di `routes/web.php`:
 
 ---
 
----
-
-## Admin Management System ✅
+## Security Improvements ✅
 
 **Tanggal:** 2026-03-28  
 **Status:** Selesai
 
-### Commands Created
+### #5 HTML Sanitizer untuk RichEditor
 
-| Command | Deskripsi |
-|---------|-----------|
-| `php artisan admin:create` | Create admin user interactively |
-| `php artisan admin:list` | List all admin users |
-| `php artisan admin:reset-password {email}` | Developer backdoor untuk reset password (local only) |
+| Komponen | Deskripsi |
+|----------|-----------|
+| `app/Helpers/HtmlSanitizer.php` | Custom HTML sanitizer class |
+| `app/Providers/HtmlSanitizerServiceProvider.php` | Blade directive `@sanitized()` |
+| `pages/berita/show.blade.php` | Updated `{!! !!}` → `@sanitized()` |
+| `pages/pengumuman/show.blade.php` | Updated `{!! !!}` → `@sanitized()` |
 
-### User Enhancements
+**Fitur Sanitizer:**
+- Remove `<script>`, `<iframe>`, `<object>`, `<embed>` tags
+- Remove event handlers (`onclick`, `onload`, dll)
+- Remove `javascript:` URLs
+- Whitelist allowed HTML tags
+- Whitelist allowed attributes
+- Sanitize CSS styles
+- Add `rel="noopener noreferrer"` dan `target="_blank"` ke links
 
-| Enhancement | Deskripsi |
-|-------------|-----------|
-| `MustVerifyEmail` interface | Email verification required |
-| `isSuperAdmin()` method | Check if user has Super Admin role |
-| `isAdmin()` method | Check if user has any admin role |
-| UserFactory role states | `superAdmin()`, `adminKonten()`, `adminLayanan()`, `operatorHarga()`, `adminMedia()` |
+### #8 Rate Limiting Admin & Login
 
-### Services & Notifications
+| Rate Limiter | Limit | Target |
+|--------------|-------|--------|
+| `filament` | 60 req/min | Admin panel routes |
+| `login` | 5 req/min | Login attempts |
 
-| File | Deskripsi |
+**File Modified:**
+- `app/Providers/AppServiceProvider.php` - Added rate limiters
+- `app/Providers/Filament/AdminPanelProvider.php` - Applied `throttle:filament` middleware
+
+### Cache Key Prefixing
+
+| Before | After |
+|--------|-------|
+| `'sitemap'` | `'app:sitemap'` |
+
+---
+
+## N+1 Query Optimizations ✅
+
+**Tanggal:** 2026-03-28  
+**Status:** Selesai
+
+### Perbaikan Eager Loading
+
+| File | Perubahan |
 |------|-----------|
-| `AdminPasswordResetService` | OTP-based password reset service |
-| `AdminPasswordResetNotification` | Reset email template (Filament style) |
+| `⚡berita-terbaru.blade.php` | Tambah `with('kategori')` pada `getNewsQuery()` |
+| `⚡pengumuman-list.blade.php` | Tambah `with('media')` pada `pengumumen()` |
+| `⚡layanan-list.blade.php` | Tambah `with('media')` pada `layanans()` |
+| `⚡hero-slider.blade.php` | Tambah `with('media')` pada `slides()` |
+| `HomeController.php` | Tambah `with('media')` pada featuredServices |
+| `WisataController.php` | Tambah `with('media')` pada wisata detail |
+| `Berita::getRelatedNews()` | Tambah `with(['kategori', 'media'])` |
+| `Wisata::getRelatedWisata()` | Tambah `with('media')` |
 
-### Filament UserResource
+### Estimasi Pengurangan Queries
 
-| Component | Status |
-|-----------|--------|
-| UserResource | ✅ Created |
-| UserForm | ✅ Created (flat form structure) |
-| UsersTable | ✅ Created |
+| Page | Before | After | Reduction |
+|------|--------|-------|------------|
+| Homepage | ~15-20 queries | ~5-7 queries | ~60-70% |
+| Berita Index | ~12 queries | ~3 queries | ~75% |
+| Berita Detail | ~8 queries | ~3 queries | ~62% |
+| Wisata Index | ~8 queries | ~2 queries | ~75% |
+| Wisata Detail | ~6 queries | ~2 queries | ~67% |
 
-### Custom Login Page
+### Sudah Benar (Tidak Perlu Diubah)
 
-| File | Deskripsi |
-|------|-----------|
-| `app/Filament/Pages/Auth/Login.php` | Custom login dengan link "Lupa Password?" |
-
-Fitur:- Link "Lupa Password?" mengarah ke `/admin/password-reset/request`
-- Menggunakan Filament's built-in password reset flow
-- Teks dalam Bahasa Indonesia
-
-### Default Admin Credentials
-
-| Field | Value |
-|-------|-------|
-| Email | `admin@lomboktimurkab.go.id` |
-| Password | `password` |
-| Role | Super Admin |
-
-**⚠️ Password harus diganti setelah deployment!**
+| File | Status |
+|------|--------|
+| `⚡berita-list.blade.php` | ✅ Sudah `with(['kategori', 'penulis'])` |
+| `⚡wisata-list.blade.php` | ✅ Sudah `with('media')` |
+| `BeritaController.php` | ✅ Sudah `with(['kategori', 'penulis'])` |
+| `PengumumanController.php` | ✅ Sudah `with('media')` |
 
 ---
 

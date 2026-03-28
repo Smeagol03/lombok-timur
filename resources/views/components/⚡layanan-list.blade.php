@@ -11,7 +11,7 @@ new class extends Component
     #[Computed]
     public function layanans()
     {
-        $query = Layanan::active()->ordered();
+        $query = Layanan::active()->with('media')->ordered();
 
         if ($this->search) {
             $query->where(function ($q) {

@@ -24,7 +24,9 @@ class WisataController extends Controller
 
     public function show(string $slug)
     {
-        $wisata = Wisata::where('slug', $slug)->firstOrFail();
+        $wisata = Wisata::where('slug', $slug)
+            ->with('media')
+            ->firstOrFail();
 
         $relatedWisata = $wisata->getRelatedWisata(3);
 

@@ -63,7 +63,7 @@
 
                     {{-- Content --}}
                     <article class="prose prose-lg max-w-none prose-headings:font-heading prose-headings:text-primary prose-a:text-accent hover:prose-a:text-accent-dark">
-                        {!! $pengumuman->konten !!}
+                        @sanitized($pengumuman->konten)
                     </article>
 
                     {{-- Attachments --}}

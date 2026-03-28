@@ -10,6 +10,7 @@ class HomeController extends Controller
     public function index()
     {
         $featuredServices = Layanan::active()
+            ->with('media')
             ->ordered()
             ->limit(5)
             ->get();

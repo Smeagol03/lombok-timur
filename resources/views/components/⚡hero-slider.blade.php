@@ -10,6 +10,7 @@ new class extends Component
     public function slides()
     {
         return SliderHero::active()
+            ->with('media')
             ->ordered()
             ->get();
     }

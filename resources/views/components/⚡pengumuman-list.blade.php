@@ -32,6 +32,7 @@ new class extends Component
     public function pengumumen()
     {
         $query = Pengumuman::active()
+            ->with('media')
             ->orderBy('is_penting', 'desc')
             ->latest('tanggal_terbit');
 

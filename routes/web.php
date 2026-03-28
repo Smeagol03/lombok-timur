@@ -34,7 +34,7 @@ Route::middleware(['throttle:search'])->group(function (): void {
     Route::get('/pencarian', fn () => view('pages.pencarian'))->name('pencarian');
 });
 
-Route::get('/sitemap.xml', fn () => Cache::remember('sitemap', 3600, function () {
+Route::get('/sitemap.xml', fn () => Cache::remember('app:sitemap', 3600, function () {
     $sitemap = Sitemap::create()
         ->add(Url::create(url('/'))
             ->setLastModificationDate(now())

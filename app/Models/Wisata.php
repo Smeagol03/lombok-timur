@@ -88,10 +88,14 @@ class Wisata extends Model implements HasMedia
     public function getRelatedWisata(int $limit = 3)
     {
         if (empty($this->kecamatan)) {
-            return static::where('id', '!=', $this->id)->limit($limit)->get();
+            return static::with('media')
+                ->where('id', '!=', $this->id)
+                ->limit($limit)
+                ->get();
         }
 
-        return static::where('id', '!=', $this->id)
+        return static::with('media')
+            ->where('id', '!=', $this->id)
             ->where('kecamatan', $this->kecamatan)
             ->limit($limit)
             ->get();

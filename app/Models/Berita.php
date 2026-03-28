@@ -106,6 +106,7 @@ class Berita extends Model implements HasMedia
     public function getRelatedNews(int $limit = 3)
     {
         return static::published()
+            ->with(['kategori', 'media'])
             ->where('id', '!=', $this->id)
             ->where('kategori_id', $this->kategori_id)
             ->latest('published_at')
