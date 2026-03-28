@@ -79,6 +79,11 @@ class Pengumuman extends Model implements HasMedia
             });
     }
 
+    public function scopePublished($query)
+    {
+        return $this->scopeActive($query);
+    }
+
     public function scopePenting($query)
     {
         return $query->where('is_penting', true);

@@ -13,7 +13,7 @@ class LayananSeeder extends Seeder
             [
                 'nama' => 'E-KTP',
                 'deskripsi' => 'Pelayanan pembuatan dan pengurusan KTP elektronik',
-                'icon' => 'id-card',
+                'icon' => 'heroicon-o-identification',
                 'dinas_terkait' => 'Dinas Dukcapil',
                 'urutan' => 1,
                 'is_active' => true,
@@ -21,7 +21,7 @@ class LayananSeeder extends Seeder
             [
                 'nama' => 'Akta Kelahiran',
                 'deskripsi' => 'Pelayanan pembuatan akta kelahiran',
-                'icon' => 'baby',
+                'icon' => 'heroicon-o-user',
                 'dinas_terkait' => 'Dinas Dukcapil',
                 'urutan' => 2,
                 'is_active' => true,
@@ -29,7 +29,7 @@ class LayananSeeder extends Seeder
             [
                 'nama' => 'Izin Usaha',
                 'deskripsi' => 'Pelayanan perizinan berusaha',
-                'icon' => 'briefcase',
+                'icon' => 'heroicon-o-briefcase',
                 'dinas_terkait' => 'DPMPTSP',
                 'urutan' => 3,
                 'is_active' => true,
@@ -37,7 +37,7 @@ class LayananSeeder extends Seeder
             [
                 'nama' => 'Kesehatan',
                 'deskripsi' => 'Pelayanan kesehatan masyarakat',
-                'icon' => 'heart-pulse',
+                'icon' => 'heroicon-o-heart',
                 'dinas_terkait' => 'Dinas Kesehatan',
                 'urutan' => 4,
                 'is_active' => true,
@@ -45,7 +45,7 @@ class LayananSeeder extends Seeder
             [
                 'nama' => 'Pendidikan',
                 'deskripsi' => 'Informasi layanan pendidikan',
-                'icon' => 'graduation-cap',
+                'icon' => 'heroicon-o-academic-cap',
                 'dinas_terkait' => 'Dinas Pendidikan',
                 'urutan' => 5,
                 'is_active' => true,

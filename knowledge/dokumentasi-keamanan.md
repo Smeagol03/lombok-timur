@@ -180,80 +180,17 @@ class SecurityHeaders
 ---
 
 ### 6. Tambahkan Additional Security Middleware
-**File Baru:** `app/Http/Middleware/AdditionalSecurity.php`
+**File:** `app/Http/Middleware/AdditionalSecurity.php`  
+**Status:** ✅ **SELESAI**  
+**Dampak:** Defense in depth untuk input validation
 
-```php
-<?php
+**Fitur yang Diterapkan:**
+- Block malicious patterns (`<script>`, `javascript:`, event handlers, etc.)
+- Remove `X-Powered-By` dan `Server` headers
+- Add cache control untuk admin pages
+- Log suspicious input attempts
 
-namespace App\Http\Middleware;
-
-use Closure;
-use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
-
-class AdditionalSecurity
-{
-    /**
-     * Patterns yang diblokir untuk mencegah XSS dan injection
-     */
-    protected array $blockedPatterns = [
-        '/<script[^>]*>.*?<\/script>/is',
-        '/javascript:/i',
-        '/on\w+\s*=\s*["\'][^"\']*["\']/i',
-        '/<iframe/i',
-        '/<object/i',
-        '/<embed/i',
-        '/eval\s*\(/i',
-        '/expression\s*\(/i',
-    ];
-    
-    /**
-     * Handle an incoming request.
-     */
-    public function handle(Request $request, Closure $next): Response
-    {
-        // Validasi input untuk common attack patterns
-        $input = json_encode($request->all());
-        
-        foreach ($this->blockedPatterns as $pattern) {
-            if (preg_match($pattern, $input)) {
-                \Log::warning('Security: Suspicious input detected', [
-                    'ip' => $request->ip(),
-                    'url' => $request->url(),
-                    'pattern' => $pattern,
-                ]);
-                
-                abort(403, 'Suspicious input detected.');
-            }
-        }
-        
-        $response = $next($request);
-        
-        // Remove server fingerprinting headers
-        $response->headers->remove('X-Powered-By');
-        $response->headers->remove('Server');
-        
-        // Add cache control for sensitive pages
-        if ($request->is('admin/*', 'filament/*')) {
-            $response->headers->set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
-            $response->headers->set('Pragma', 'no-cache');
-            $response->headers->set('Expires', '0');
-        }
-        
-        return $response;
-    }
-}
-```
-
-**Register Middleware:**
-**File:** `bootstrap/app.php`
-
-```php
-->withMiddleware(function (Middleware $middleware): void {
-    $middleware->append(\App\Http\Middleware\SecurityHeaders::class);
-    $middleware->append(\App\Http\Middleware\AdditionalSecurity::class);
-})
-```
+**Middleware Registered:** `bootstrap/app.php`
 
 ---
 
@@ -315,22 +252,15 @@ RateLimiter::for('login', function (Request $request) {
 ## 🟢 LOW - Perbaikan Minor
 
 ### 9. Cache Key Prefixing
-**File:** `routes/web.php` (line 37)
+**Status:** ✅ **SELESAI**
 
-**Sebelum:**
 ```php
-Route::get('/sitemap.xml', fn () => Cache::remember('sitemap', 3600, function () {
-```
-
-**Sesudah:**
-```php
+// routes/web.php
 Route::get('/sitemap.xml', fn () => Cache::remember('app:sitemap', 3600, function () {
 ```
 
----
-
 ### 10. Hapus X-Powered-By Header
-Sudah ditangani di AdditionalSecurity middleware (poin #6).
+**Status:** ✅ **SELESAI** - Handled di AdditionalSecurity middleware (#6)
 
 ---
 

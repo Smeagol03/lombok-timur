@@ -1,10 +1,10 @@
-<x-layouts.app 
+<x-layouts.app
     :title="$title ?? null"
     :description="$description ?? null"
     :keywords="$keywords ?? null"
     :ogImage="$ogImage ?? null"
     :type="$type ?? 'place'">
-    
+
     @isset($jsonLd)
     <x-json-ld
         :type="$jsonLd['type']"
@@ -15,20 +15,20 @@
         :address="$jsonLd['address'] ?? null"
         :geo="$jsonLd['geo'] ?? null" />
     @endisset
-    
+
     <div class="min-h-screen bg-background">
         {{-- Hero Section with Gallery --}}
         <div class="relative h-[280px] sm:h-[350px] md:h-[450px] bg-gray-900">
             @if($wisata->getFirstMediaUrl('foto_utama'))
-            <img src="{{ $wisata->getFirstMediaUrl('foto_utama') }}" 
+            <img src="{{ $wisata->getFirstMediaUrl('foto_utama') }}"
                  alt="{{ $wisata->nama }}"
                  class="w-full h-full object-cover">
             @else
             <div class="w-full h-full bg-gradient-to-r from-primary to-primary-dark"></div>
             @endif
-            
+
             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
-            
+
             <div class="absolute bottom-0 left-0 right-0 p-5 sm:p-8 md:p-12">
                 <div class="max-w-4xl mx-auto">
                     {{-- Breadcrumb --}}
@@ -43,20 +43,20 @@
                         </svg>
                         <span class="!text-white">Detail</span>
                     </nav>
-                    
+
                     {{-- Kecamatan Badge --}}
                     <span class="inline-block px-3 py-1 bg-accent text-white text-xs sm:text-sm rounded mb-2 sm:mb-3">
                         {{ $wisata->kecamatan }}
                     </span>
-                    
+
                     {{-- Title --}}
-                    <h1 class="font-heading text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white leading-tight drop-shadow-sm">
+                    <h1 class="font-heading text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold !text-white leading-tight drop-shadow-sm">
                         {{ $wisata->nama }}
                     </h1>
                 </div>
             </div>
         </div>
-        
+
         {{-- Content Section --}}
         <div class="py-10 sm:py-14">
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -71,7 +71,7 @@
                             <p class="font-medium text-gray-900">Lokasi</p>
                             <p class="text-gray-600 text-sm sm:text-base">{{ $wisata->lokasi }}</p>
                             @if($wisata->koordinat_lat && $wisata->koordinat_lng)
-                            <a href="https://www.google.com/maps?q={{ $wisata->koordinat_lat }},{{ $wisata->koordinat_lng }}" 
+                            <a href="https://www.google.com/maps?q={{ $wisata->koordinat_lat }},{{ $wisata->koordinat_lng }}"
                                target="_blank"
                                class="inline-flex items-center gap-1 mt-2 text-primary hover:text-accent text-sm transition-colors">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -82,12 +82,12 @@
                             @endif
                         </div>
                     </div>
-                    
+
                     {{-- Description --}}
                     <div class="prose prose-lg max-w-none prose-headings:font-heading prose-headings:text-primary">
                         {!! nl2br(e($wisata->deskripsi)) !!}
                     </div>
-                    
+
                     {{-- Gallery --}}
                     @if($wisata->getMedia('galeri')->count() > 0)
                     <div class="mt-8 sm:mt-10 pt-5 sm:pt-6 border-t border-gray-100">
@@ -95,7 +95,7 @@
                         <div class="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
                             @foreach($wisata->getMedia('galeri') as $media)
                             <div class="aspect-square rounded-lg overflow-hidden bg-gray-100">
-                                <img src="{{ $media->getUrl() }}" 
+                                <img src="{{ $media->getUrl() }}"
                                      alt="{{ $wisata->nama }}"
                                      class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
                             </div>
@@ -106,7 +106,7 @@
                 </div>
             </div>
         </div>
-        
+
         {{-- Related Tourism --}}
         @if(isset($relatedWisata) && $relatedWisata->count() > 0)
         <div class="pb-12 sm:pb-16">
@@ -118,7 +118,7 @@
                         <a href="{{ url('/wisata/'.$related->slug) }}">
                             <div class="aspect-video bg-gray-200">
                                 @if($related->getFirstMediaUrl('foto_utama'))
-                                <img src="{{ $related->getFirstMediaUrl('foto_utama') }}" 
+                                <img src="{{ $related->getFirstMediaUrl('foto_utama') }}"
                                      alt="{{ $related->nama }}"
                                      class="w-full h-full object-cover">
                                 @else

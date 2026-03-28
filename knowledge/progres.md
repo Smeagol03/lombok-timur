@@ -467,6 +467,20 @@ Semua routes telah ditambahkan di `routes/web.php`:
 - `app/Providers/AppServiceProvider.php` - Added rate limiters
 - `app/Providers/Filament/AdminPanelProvider.php` - Applied `throttle:filament` middleware
 
+### #6 AdditionalSecurity Middleware
+
+| Komponen | Deskripsi |
+|----------|-----------|
+| `app/Http/Middleware/AdditionalSecurity.php` | Malicious pattern blocking |
+| `bootstrap/app.php` | Middleware registration |
+
+**Fitur AdditionalSecurity:**
+- Block `<script>`, `javascript:`, event handlers di input
+- Block `<iframe>`, `<object>`, `<embed>` tags
+- Remove `X-Powered-By` dan `Server` headers
+- Cache control untuk admin pages (`no-store, no-cache`)
+- Log suspicious input dengan IP dan URL
+
 ### Cache Key Prefixing
 
 | Before | After |
