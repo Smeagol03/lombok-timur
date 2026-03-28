@@ -41,7 +41,7 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => env('APP_ENV') === 'production'
-                ? base_path('../public_html/storage')
+                ? dirname(__DIR__).'/../domains/peachpuff-cormorant-312171.hostingersite.com/public_html/storage'
                 : storage_path('app/public'),
             'url' => rtrim(env('APP_URL', 'http://localhost'), '/').'/storage',
             'visibility' => 'public',
