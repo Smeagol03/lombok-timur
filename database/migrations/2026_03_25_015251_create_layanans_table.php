@@ -13,7 +13,7 @@ return new class extends Migration
             $table->string('nama');
             $table->string('slug')->unique();
             $table->text('deskripsi');
-            $table->string('icon');
+            $table->string('icon')->nullable();
             $table->string('url_eksternal')->nullable();
             $table->string('dinas_terkait');
             $table->integer('urutan')->default(0);

@@ -21,7 +21,12 @@ class KategoriSeeder extends Seeder
         ];
 
         foreach ($kategoris as $kategori) {
-            Kategori::create($kategori);
+            Kategori::firstOrCreate(
+                ['nama' => $kategori['nama']],
+                $kategori
+            );
         }
+
+        $this->command->info('Kategori seeded successfully.');
     }
 }

@@ -10,12 +10,18 @@ class UserSeeder extends Seeder
 {
     public function run(): void
     {
-        $user = User::create([
-            'name' => 'Admin Portal',
-            'email' => 'admin@lomboktimurkab.go.id',
-            'password' => Hash::make('password'),
-        ]);
+        $user = User::firstOrCreate(
+            ['email' => 'admin@lomboktimurkab.go.id'],
+            [
+                'name' => 'Admin Portal',
+                'password' => Hash::make('password'),
+            ]
+        );
 
-        $user->assignRole('Super Admin');
+        if ($user->wasRecentlyCreated || ! $user->hasRole('Super Admin')) {
+            $user->assignRole('Super Admin');
+        }
+
+        $this->command->info('User seeded successfully.');
     }
 }

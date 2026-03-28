@@ -7,6 +7,7 @@ use App\Filament\Widgets\BeritaPopulerWidget;
 use App\Filament\Widgets\BeritaStatsWidget;
 use App\Filament\Widgets\KontenOverviewWidget;
 use App\Filament\Widgets\StokDarahWidget;
+use App\Models\Setting;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -28,14 +29,21 @@ class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
+        $setting = null;
+        try {
+            $setting = Setting::first();
+        } catch (\Exception $e) {
+            // Table might not exist yet (during migration)
+        }
+
         return $panel
             ->default()
             ->id('admin')
             ->path('admin')
             ->login()
             ->passwordReset()
-            ->brandName('Portal Lombok Timur')
-            ->brandLogo(fn () => view('filament.admin.logo'))
+            ->brandName($setting?->site_name ?? 'Portal Lombok Timur')
+            ->brandLogo(fn () => view('filament.admin.logo', ['setting' => $setting]))
             ->brandLogoHeight('2.5rem')
             ->colors([
                 'primary' => Color::Emerald,

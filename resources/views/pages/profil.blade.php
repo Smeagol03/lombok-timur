@@ -1,12 +1,15 @@
-<x-layouts.app>
+<x-layouts.app 
+    title="Profil Kabupaten Lombok Timur"
+    description="Profil dan informasi umum Kabupaten Lombok Timur, Nusa Tenggara Barat. Sejarah, visi misi, dan struktur pemerintahan."
+    keywords="profil lombok timur, tentang lombok timur, pemerintah daerah, ntb">
     <div class="min-h-screen bg-background">
         {{-- Hero Section --}}
-        <div class="bg-primary py-16">
+        <div class="bg-slate-300 py-10 sm:py-16">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <h1 class="font-heading text-3xl md:text-4xl font-bold text-white mb-4">
+                <h1 class="font-heading text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 sm:mb-4">
                     Profil Kabupaten Lombok Timur
                 </h1>
-                <p class="text-primary-200 max-w-2xl mx-auto">
+                <p class="text-primary-200 max-w-2xl mx-auto text-sm sm:text-base">
                     Informasi tentang pemerintahan, visi misi, dan struktur organisasi Kabupaten Lombok Timur.
                 </p>
             </div>

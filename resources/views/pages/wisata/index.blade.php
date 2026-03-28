@@ -1,12 +1,16 @@
-<x-layouts.app>
-    <div class="min-h-screen bg-background py-12">
+<x-layouts.app 
+    :title="$title ?? null"
+    :description="$description ?? null"
+    :keywords="$keywords ?? null"
+    :ogImage="$ogImage ?? null">
+    <div class="min-h-screen bg-gray-50 py-10 sm:py-14">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {{-- Header --}}
-            <div class="text-center mb-12">
-                <h1 class="font-heading text-3xl md:text-4xl font-bold text-primary mb-4">
+            <div class="text-center mb-10 sm:mb-14">
+                <h1 class="font-heading text-2xl sm:text-3xl md:text-4xl font-bold text-primary mb-3 sm:mb-4">
                     Wisata Lombok Timur
                 </h1>
-                <p class="text-gray-600 max-w-2xl mx-auto">
+                <p class="text-gray-600 max-w-2xl mx-auto text-sm sm:text-base">
                     Jelajahi keindahan wisata alam dan budaya Kabupaten Lombok Timur.
                 </p>
             </div>

@@ -16,6 +16,7 @@ class LayananSeeder extends Seeder
                 'icon' => 'id-card',
                 'dinas_terkait' => 'Dinas Dukcapil',
                 'urutan' => 1,
+                'is_active' => true,
             ],
             [
                 'nama' => 'Akta Kelahiran',
@@ -23,6 +24,7 @@ class LayananSeeder extends Seeder
                 'icon' => 'baby',
                 'dinas_terkait' => 'Dinas Dukcapil',
                 'urutan' => 2,
+                'is_active' => true,
             ],
             [
                 'nama' => 'Izin Usaha',
@@ -30,6 +32,7 @@ class LayananSeeder extends Seeder
                 'icon' => 'briefcase',
                 'dinas_terkait' => 'DPMPTSP',
                 'urutan' => 3,
+                'is_active' => true,
             ],
             [
                 'nama' => 'Kesehatan',
@@ -37,6 +40,7 @@ class LayananSeeder extends Seeder
                 'icon' => 'heart-pulse',
                 'dinas_terkait' => 'Dinas Kesehatan',
                 'urutan' => 4,
+                'is_active' => true,
             ],
             [
                 'nama' => 'Pendidikan',
@@ -44,11 +48,17 @@ class LayananSeeder extends Seeder
                 'icon' => 'graduation-cap',
                 'dinas_terkait' => 'Dinas Pendidikan',
                 'urutan' => 5,
+                'is_active' => true,
             ],
         ];
 
-        foreach ($layanans as $layanan) {
-            Layanan::create($layanan);
+        foreach ($layanans as $layananData) {
+            Layanan::updateOrCreate(
+                ['nama' => $layananData['nama']],
+                $layananData
+            );
         }
+
+        $this->command->info('Layanan seeded successfully.');
     }
 }

@@ -60,12 +60,12 @@ new class extends Component
                 <div class="flex flex-col h-full">
                     {{-- Icon --}}
                     <div class="w-16 h-16 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                        @if($layanan->getFirstMediaUrl('icon'))
-                        <img src="{{ $layanan->getFirstMediaUrl('icon') }}" alt="{{ $layanan->nama }}" class="w-8 h-8 object-contain">
+                        @if($layanan->icon_type === 'image' && $layanan->getFirstMediaUrl('icon'))
+                            <img src="{{ $layanan->getFirstMediaUrl('icon') }}" alt="{{ $layanan->nama }}" class="w-8 h-8 object-contain">
+                        @elseif($layanan->icon_type === 'icon' && $layanan->icon)
+                            @svg($layanan->icon, 'w-8 h-8 text-primary')
                         @else
-                        <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                        </svg>
+                            @svg('heroicon-o-information-circle', 'w-8 h-8 text-primary')
                         @endif
                     </div>
                     

@@ -1,119 +1,189 @@
 <?php
 
 use App\Models\SliderHero;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 
 new class extends Component
 {
-    public $slides;
-
-    public function mount(): void
+    #[Computed]
+    public function slides()
     {
-        $this->slides = SliderHero::active()
+        return SliderHero::active()
             ->ordered()
             ->get();
     }
 };
 ?>
 
-@if($slides->count() > 0)
-<div class="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[550px] xl:h-[600px]" wire:ignore>
-    <div class="swiper hero-slider h-full">
-        <div class="swiper-wrapper">
-            @foreach($slides as $slide)
-            <div class="swiper-slide relative">
-                @if($slide->getFirstMediaUrl('gambar'))
-                <img src="{{ $slide->getFirstMediaUrl('gambar') }}" 
-                     alt="{{ $slide->judul }}" 
-                     class="w-full h-full object-cover">
-                @else
-                <div class="w-full h-full bg-gradient-to-r from-primary to-primary-dark flex items-center justify-center">
-                    <span class="text-white/20 text-4xl sm:text-5xl md:text-6xl font-heading font-bold px-4 text-center">{{ $slide->judul }}</span>
-                </div>
-                @endif
-                
-                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
-                
-                <div class="absolute bottom-0 left-0 right-0 p-4 sm:p-6 md:p-10 lg:p-12">
-                    <div class="max-w-7xl mx-auto">
-                        <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-heading font-bold text-white mb-2 sm:mb-3 leading-tight">
-                            {{ $slide->judul }}
-                        </h2>
-                        @if($slide->subtitle)
-                        <p class="text-sm sm:text-base md:text-lg lg:text-xl text-gray-200 mb-4 sm:mb-6 max-w-2xl line-clamp-2 sm:line-clamp-none">
-                            {{ $slide->subtitle }}
-                        </p>
-                        @endif
-                        @if($slide->url_link)
-                        <a href="{{ $slide->url_link }}" 
-                           class="inline-flex items-center px-4 sm:px-6 py-2.5 sm:py-3 bg-accent hover:bg-accent-dark text-white font-semibold rounded-lg transition-colors text-sm sm:text-base">
-                            {{ $slide->label_tombol ?: 'Selengkapnya' }}
-                            <svg class="w-4 h-4 sm:w-5 sm:h-5 ml-1.5 sm:ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                            </svg>
-                        </a>
-                        @endif
-                    </div>
-                </div>
-            </div>
-            @endforeach
-        </div>
-        
-        <div class="swiper-pagination !bottom-3 sm:!bottom-4"></div>
-        
-        {{-- Navigation Arrows - Hidden on mobile, visible on tablet+ --}}
-        <button class="swiper-button-prev hidden sm:flex !w-10 !h-10 lg:!w-12 lg:!h-12 !bg-white/20 hover:!bg-white/40 !rounded-full !text-white !backdrop-blur-sm !transition-all !left-2 lg:!left-4 after:!text-sm lg:after:!text-base">
-        </button>
-        <button class="swiper-button-next hidden sm:flex !w-10 !h-10 lg:!w-12 lg:!h-12 !bg-white/20 hover:!bg-white/40 !rounded-full !text-white !backdrop-blur-sm !transition-all !right-2 lg:!right-4 after:!text-sm lg:after:!text-base">
-        </button>
-    </div>
-</div>
-
-@script
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        new Swiper('.hero-slider', {
+@if($this->slides->count() > 0)
+<div class="relative w-full overflow-hidden !bg-white" 
+     x-data="{ swiper: null }"
+     x-init="
+        if (typeof Swiper !== 'undefined' && window.SwiperModules) {
+            Swiper.use([window.SwiperModules.Navigation, window.SwiperModules.Pagination, window.SwiperModules.Autoplay, window.SwiperModules.EffectFade]);
+        }
+        swiper = new Swiper($el.querySelector('.hero-slider'), {
             loop: true,
+            speed: 1200,
             autoplay: {
                 delay: 5000,
                 disableOnInteraction: false,
+                pauseOnMouseEnter: true,
             },
             pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-                bulletActiveClass: '!bg-accent !w-6 sm:!w-8',
-                bulletClass: 'swiper-pagination-bullet !bg-white/50 !w-2 sm:!w-3 !h-2 sm:!h-3 !mx-1 sm:!mx-1.5 !transition-all',
+                el: $el.querySelector('.swiper-pagination-custom'),
+                type: 'fraction',
+                formatFractionCurrent: function (number) {
+                    return ('0' + number).slice(-2);
+                },
+                formatFractionTotal: function (number) {
+                    return ('0' + number).slice(-2);
+                },
+                renderFraction: function (currentClass, totalClass) {
+                    return '<span class=&quot;' + currentClass + '&quot;></span>' +
+                           '<span class=&quot;mx-3 opacity-20&quot;>|</span>' +
+                           '<span class=&quot;' + totalClass + '&quot;></span>';
+                }
             },
             navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
+                nextEl: Array.from($el.querySelectorAll('.swiper-button-next-custom')),
+                prevEl: Array.from($el.querySelectorAll('.swiper-button-prev-custom')),
             },
             effect: 'fade',
             fadeEffect: {
                 crossFade: true
             },
         });
-    });
-</script>
-@endscript
+     ">
+    <div class="swiper hero-slider h-auto lg:h-[600px] xl:h-[700px] !bg-white">
+        <div class="swiper-wrapper">
+            @foreach($this->slides as $slide)
+            <div class="swiper-slide h-full !bg-white">
+                <div class="grid grid-cols-1 lg:grid-cols-12 h-full">
+                    {{-- Text Section --}}
+                    <div class="lg:col-span-5 flex flex-col justify-center p-8 sm:p-12 lg:p-16 xl:p-20 !bg-white order-2 lg:order-1 relative z-20">
+                        <div class="space-y-6">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-[3px] bg-accent"></div>
+                                <span class="text-xs font-black tracking-[0.2em] uppercase !text-primary">Update Terbaru</span>
+                            </div>
+                            
+                            <h2 class="text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-heading font-extrabold !text-primary leading-[1.1] tracking-tighter">
+                                {{ $slide->judul }}
+                            </h2>
+                            
+                            @if($slide->subtitle)
+                            <p class="text-base sm:text-lg !text-gray-900 leading-relaxed max-w-xl font-body font-medium">
+                                {{ $slide->subtitle }}
+                            </p>
+                            @endif
+                            
+                            @if($slide->url_link)
+                            <div class="pt-4 lg:pt-8">
+                                <a href="{{ $slide->url_link }}"
+                                   class="inline-flex items-center gap-3 px-8 py-4 bg-accent text-white font-bold transition-all duration-300 hover:bg-accent-dark group shadow-xl hover:shadow-2xl relative overflow-hidden">
+                                    <span class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                                    <span class="uppercase tracking-widest text-sm relative z-10 drop-shadow-md">{{ $slide->label_tombol ?: 'Selengkapnya' }}</span>
+                                    <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform flex-shrink-0 relative z-10 drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                    </svg>
+                                </a>
+                            </div>
+                            @endif
+                        </div>
+                    </div>
+                    
+                    {{-- Image Section --}}
+                    <div class="lg:col-span-7 relative min-h-[350px] sm:min-h-[450px] lg:h-full order-1 lg:order-2 overflow-hidden bg-gray-100">
+                        @if($slide->getFirstMediaUrl('gambar'))
+                        <img src="{{ $slide->getFirstMediaUrl('gambar') }}"
+                             alt="{{ $slide->judul }}"
+                             class="w-full h-full object-cover grayscale-[10%] hover:grayscale-0 transition-all duration-1000">
+                        @else
+                        <img src="https://picsum.photos/1200/800?random={{ $slide->id }}"
+                             alt="{{ $slide->judul }}"
+                             class="w-full h-full object-cover grayscale-[10%]">
+                        @endif
+                        
+                        {{-- Subtle Overlay for Image Section only --}}
+                        <div class="absolute inset-0 bg-primary/5 pointer-events-none"></div>
+                        
+                        {{-- Subtle Geometric Element --}}
+                        <div class="absolute top-0 left-0 w-20 h-20 !bg-white hidden lg:block z-30"></div>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+        
+        {{-- Navigation & Pagination - Desktop Only (inside slider) --}}
+        <div class="hidden lg:flex absolute bottom-0 left-0 z-40 items-end pointer-events-none">
+            <div class="flex items-center !bg-white border-t border-r border-gray-200 p-3 sm:p-5 pointer-events-auto">
+                <button type="button" class="swiper-button-prev-custom p-3 !text-primary hover:text-accent transition-colors focus:outline-none cursor-pointer pointer-events-auto" style="cursor: pointer !important;">
+                    <svg class="w-7 h-7 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+                <div class="swiper-pagination-custom text-base font-black font-heading px-8 !text-primary tracking-[0.2em] min-w-[100px] text-center pointer-events-none"></div>
+                <button type="button" class="swiper-button-next-custom p-3 !text-primary hover:text-accent transition-colors focus:outline-none cursor-pointer pointer-events-auto" style="cursor: pointer !important;">
+                    <svg class="w-7 h-7 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    {{-- Navigation & Pagination - Mobile Only (below slider) --}}
+    <div class="lg:hidden flex justify-center items-center !bg-white border-t border-gray-200 p-4 pointer-events-auto mt-0">
+        <button type="button" class="swiper-button-prev-custom p-3 !text-primary hover:text-accent transition-colors focus:outline-none cursor-pointer pointer-events-auto" style="cursor: pointer !important;">
+            <svg class="w-6 h-6 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/>
+            </svg>
+        </button>
+        <div class="swiper-pagination-custom text-base font-black font-heading px-6 !text-primary tracking-[0.2em] min-w-[80px] text-center pointer-events-none"></div>
+        <button type="button" class="swiper-button-next-custom p-3 !text-primary hover:text-accent transition-colors focus:outline-none cursor-pointer pointer-events-auto" style="cursor: pointer !important;">
+            <svg class="w-6 h-6 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+            </svg>
+        </button>
+    </div>
+</div>
+
 @else
-{{-- Default Hero when no slides --}}
-<div class="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[550px] bg-gradient-to-br from-primary via-primary-dark to-primary">
-    <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%23ffffff\" fill-opacity=\"0.05\"%3E%3Cpath d=\"M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-20"></div>
-    <div class="absolute inset-0 flex items-center justify-center">
-        <div class="text-center px-4 sm:px-6 max-w-3xl mx-auto">
-            <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-heading font-bold text-white mb-3 sm:mb-4 leading-tight">
-                Portal <span class="text-accent">Lombok Timur</span>
-            </h1>
-            <p class="text-sm sm:text-base md:text-lg lg:text-xl text-gray-200 max-w-2xl mx-auto mb-6 sm:mb-8 px-2 sm:px-0">
-                Pemerintah Kabupaten Lombok Timur melayani masyarakat dengan transparan dan profesional.
-            </p>
-            <a href="{{ url('/layanan') }}" class="inline-flex items-center px-5 sm:px-8 py-2.5 sm:py-4 bg-accent hover:bg-accent-dark text-white font-bold rounded-lg transition-colors text-sm sm:text-base shadow-lg shadow-accent/30">
-                Jelajahi Layanan
-                <svg class="w-4 h-4 sm:w-5 sm:h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                </svg>
-            </a>
+{{-- Default Hero when no slides - Swiss Layout --}}
+<div class="relative w-full !bg-white overflow-hidden border-b border-gray-100">
+    <div class="grid grid-cols-1 lg:grid-cols-12 h-auto lg:min-h-[600px]">
+        <div class="lg:col-span-6 flex flex-col justify-center p-8 sm:p-12 lg:p-20 xl:p-24 order-2 lg:order-1 !bg-white relative z-10">
+            <div class="space-y-6 lg:space-y-8">
+                <div class="inline-flex items-center gap-3">
+                    <div class="w-8 h-[3px] !bg-primary"></div>
+                    <span class="!text-primary text-[11px] font-black tracking-[0.4em] uppercase">Official Portal</span>
+                </div>
+                <h1 class="text-5xl sm:text-6xl md:text-7xl xl:text-8xl font-heading font-extrabold !text-primary leading-[0.95] tracking-tighter">
+                    LOMBOK <br><span class="text-accent">TIMUR.</span>
+                </h1>
+                <p class="text-xl sm:text-2xl !text-gray-900 max-w-xl font-body leading-relaxed font-medium">
+                    Melayani dengan transparansi dan profesionalisme untuk masyarakat.
+                </p>
+                <div class="pt-6 lg:pt-10">
+                    <a href="{{ url('/layanan') }}" class="inline-flex items-center gap-5 px-10 py-5 bg-accent text-white font-black transition-all duration-300 hover:bg-accent-dark group shadow-xl shadow-accent/30 relative overflow-hidden">
+                        <span class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                        <span class="uppercase tracking-widest text-sm relative z-10 drop-shadow-md">E-Layanan Publik</span>
+                        <svg class="w-6 h-6 group-hover:translate-x-2 transition-transform relative z-10 drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="lg:col-span-6 relative h-[400px] sm:h-[500px] lg:h-auto order-1 lg:order-2 bg-gray-50 overflow-hidden">
+            <div class="absolute inset-0 bg-primary/10 mix-blend-multiply z-10"></div>
+            <img src="https://picsum.photos/1200/1200?grayscale" alt="Lombok Timur" class="w-full h-full object-cover">
+            
+            {{-- Decorative Grid Overlay --}}
+            <div class="absolute inset-0 z-20 opacity-[0.05]" style="background-image: radial-gradient(circle, #000 1.5px, transparent 1.5px); background-size: 40px 40px;"></div>
         </div>
     </div>
 </div>

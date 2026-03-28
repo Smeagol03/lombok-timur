@@ -25,6 +25,7 @@ class Layanan extends Model implements HasMedia
         'slug',
         'deskripsi',
         'icon',
+        'icon_type',
         'url_eksternal',
         'dinas_terkait',
         'urutan',
@@ -34,6 +35,7 @@ class Layanan extends Model implements HasMedia
     protected $casts = [
         'is_active' => 'boolean',
         'urutan' => 'integer',
+        'icon_type' => 'string',
     ];
 
     protected static function boot(): void

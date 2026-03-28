@@ -12,11 +12,15 @@ class StokDarahSeeder extends Seeder
         $golongans = ['A', 'B', 'AB', 'O'];
 
         foreach ($golongans as $golongan) {
-            StokDarah::create([
-                'golongan' => $golongan,
-                'jumlah' => rand(50, 150),
-                'tanggal_update' => now(),
-            ]);
+            StokDarah::updateOrCreate(
+                ['golongan' => $golongan],
+                [
+                    'jumlah' => rand(50, 150),
+                    'tanggal_update' => now(),
+                ]
+            );
         }
+
+        $this->command->info('StokDarah seeded successfully.');
     }
 }

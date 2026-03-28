@@ -12,7 +12,7 @@ return new class extends Migration
             $table->ulid('id')->primary();
             $table->string('judul');
             $table->text('subtitle')->nullable();
-            $table->string('gambar');
+            $table->string('gambar')->nullable();
             $table->string('url_link')->nullable();
             $table->string('label_tombol')->nullable();
             $table->integer('urutan')->default(0);
