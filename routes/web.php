@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\HargaPokokController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LayananController;
 use App\Http\Controllers\PengumumanController;
@@ -21,6 +22,7 @@ Route::middleware(['throttle:public'])->group(function (): void {
     Route::get('/layanan/{slug}', [LayananController::class, 'show'])->name('layanan.show');
     Route::get('/wisata', [WisataController::class, 'index'])->name('wisata.index');
     Route::get('/wisata/{slug}', [WisataController::class, 'show'])->name('wisata.show');
+    Route::get('/harga-pokok', [HargaPokokController::class, 'index'])->name('harga-pokok.index');
 });
 
 Route::middleware(['throttle:public'])->group(function (): void {
@@ -59,7 +61,11 @@ Route::get('/sitemap.xml', fn () => Cache::remember('app:sitemap', 3600, functio
         ->add(Url::create(url('/profil'))
             ->setLastModificationDate(now())
             ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY)
-            ->setPriority(0.7));
+            ->setPriority(0.7))
+        ->add(Url::create(url('/harga-pokok'))
+            ->setLastModificationDate(now())
+            ->setChangeFrequency(Url::CHANGE_FREQUENCY_DAILY)
+            ->setPriority(0.8));
 
     Berita::published()
         ->latest('published_at')

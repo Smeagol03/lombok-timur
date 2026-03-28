@@ -5,47 +5,48 @@ use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 
-new class extends Component {
+new class extends Component
+{
     #[Computed]
     public function prices()
     {
         // Ambil semua data dengan harga sebelumnya dalam 1 query
-        $prices = HargaPokok::select("harga_poks.*")
+        $prices = HargaPokok::select('harga_poks.*')
             ->selectSub(
-                DB::table("harga_poks as hp2")
-                    ->select("hp2.harga")
+                DB::table('harga_poks as hp2')
+                    ->select('hp2.harga')
                     ->whereColumn(
-                        "hp2.nama_komoditi",
-                        "harga_poks.nama_komoditi",
+                        'hp2.nama_komoditi',
+                        'harga_poks.nama_komoditi',
                     )
                     ->whereColumn(
-                        "hp2.tanggal_update",
-                        "<",
-                        "harga_poks.tanggal_update",
+                        'hp2.tanggal_update',
+                        '<',
+                        'harga_poks.tanggal_update',
                     )
-                    ->orderByDesc("hp2.tanggal_update")
+                    ->orderByDesc('hp2.tanggal_update')
                     ->limit(1),
-                "harga_sebelumnya",
+                'harga_sebelumnya',
             )
-            ->latest("tanggal_update")
+            ->latest('tanggal_update')
             ->take(20)
             ->get()
             ->map(function ($price) {
                 $hargaLama = $price->harga_sebelumnya;
 
                 if ($hargaLama === null) {
-                    $price->change = ["type" => "same", "value" => 0];
+                    $price->change = ['type' => 'same', 'value' => 0];
                 } else {
                     $diff = $price->harga - $hargaLama;
                     if ($diff > 0) {
-                        $price->change = ["type" => "up", "value" => $diff];
+                        $price->change = ['type' => 'up', 'value' => $diff];
                     } elseif ($diff < 0) {
                         $price->change = [
-                            "type" => "down",
-                            "value" => abs($diff),
+                            'type' => 'down',
+                            'value' => abs($diff),
                         ];
                     } else {
-                        $price->change = ["type" => "same", "value" => 0];
+                        $price->change = ['type' => 'same', 'value' => 0];
                     }
                 }
 
@@ -58,7 +59,7 @@ new class extends Component {
     #[Computed]
     public function lastUpdate()
     {
-        return HargaPokok::latest("tanggal_update")->value("tanggal_update");
+        return HargaPokok::latest('tanggal_update')->value('tanggal_update');
     }
 };
 ?>
@@ -71,7 +72,7 @@ new class extends Component {
             <p class="text-xs text-gray-500">Update: {{ $this->lastUpdate->format('d M Y') }}</p>
             @endif
         </div>
-        <a href="{{ url('/data/harga-pokok') }}" class="text-xs font-medium text-primary hover:text-primary-dark flex items-center gap-1">
+        <a href="{{ url('/harga-pokok') }}" class="text-xs font-medium text-primary hover:text-primary-dark flex items-center gap-1">
             Selengkapnya
             <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>

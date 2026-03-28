@@ -1,19 +1,82 @@
-<x-layouts.app 
+<x-layouts.app
     title="Profil Kabupaten Lombok Timur"
     description="Profil dan informasi umum Kabupaten Lombok Timur, Nusa Tenggara Barat. Sejarah, visi misi, dan struktur pemerintahan."
     keywords="profil lombok timur, tentang lombok timur, pemerintah daerah, ntb">
     <div class="min-h-screen bg-background">
-        {{-- Hero Section --}}
-        <div class="bg-slate-300 py-10 sm:py-16">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <h1 class="font-heading text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 sm:mb-4">
-                    Profil Kabupaten Lombok Timur
-                </h1>
-                <p class="text-primary-200 max-w-2xl mx-auto text-sm sm:text-base">
-                    Informasi tentang pemerintahan, visi misi, dan struktur organisasi Kabupaten Lombok Timur.
-                </p>
+        {{-- Hero Section - Swiss Modern Design --}}
+        <section class="bg-primary py-20 md:py-28 relative overflow-hidden">
+            {{-- Abstract Geometric Pattern --}}
+            <div class="absolute inset-0 opacity-5">
+                <div class="absolute top-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
+                <div class="absolute bottom-0 left-0 w-64 h-64 bg-white rounded-full blur-2xl transform -translate-x-1/3 translate-y-1/3"></div>
             </div>
-        </div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                    {{-- Main Content - Left Side --}}
+                    <div class="lg:col-span-8">
+                        {{-- Breadcrumb Style Label --}}
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="h-px w-8 bg-white/40"></div>
+                            <span class="text-xs font-medium tracking-[0.2em] text-white/50 uppercase">Profil Daerah</span>
+                        </div>
+
+                        {{-- Title - Bold Typography with Varied Weights --}}
+                        <h1 class="font-sans text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold !text-white tracking-tight leading-[0.95]">
+                            PROFIL<br>
+                            <span class="font-light text-white">KABUPATEN</span><br>
+                            <span class="text-yellow-500">LOMBOK TIMUR</span>
+                        </h1>
+
+                        {{-- Description --}}
+                        <p class="text-white/70 mt-8 text-base md:text-lg max-w-2xl leading-relaxed">
+                            Informasi tentang pemerintahan, visi misi, dan struktur organisasi Kabupaten Lombok Timur.
+                            Mengenal lebih dekat sejarah, potensi, dan arah pembangunan daerah.
+                        </p>
+                    </div>
+
+                    {{-- Visual Panel - Right Side --}}
+                    <div class="lg:col-span-4">
+                        <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 h-full">
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-xs font-medium tracking-widest text-white/60 uppercase">Informasi</span>
+                                <svg class="w-5 h-5 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-2 h-2 bg-accent rounded-full"></div>
+                                    <span class="text-sm text-white/80">20 Kecamatan</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <div class="w-2 h-2 bg-accent rounded-full"></div>
+                                    <span class="text-sm text-white/80">1.605 km² Luas Wilayah</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <div class="w-2 h-2 bg-accent rounded-full"></div>
+                                    <span class="text-sm text-white/80">1.3jt+ Penduduk</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <div class="w-2 h-2 bg-accent rounded-full"></div>
+                                    <span class="text-sm text-white/80">Ibu Kota: Selong</span>
+                                </div>
+                            </div>
+
+                            {{-- Decorative Element --}}
+                            <div class="mt-8 pt-6 border-t border-white/20">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-8 h-1 bg-accent rounded-full"></div>
+                                    <div class="w-4 h-1 bg-white/30 rounded-full"></div>
+                                    <div class="w-2 h-1 bg-white/20 rounded-full"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         {{-- Content Section --}}
         <div class="py-12">
@@ -115,56 +178,72 @@
                         </div>
                     </section>
 
-                    {{-- Quick Stats --}}
-                    <section class="mb-12">
-                        <h2 class="font-heading text-2xl font-bold text-primary mb-6">Data Umum</h2>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            <div class="bg-primary/5 rounded-lg p-6 text-center">
-                                <svg class="w-8 h-8 text-primary mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
-                                </svg>
-                                <p class="text-3xl font-bold text-primary mb-1">20</p>
-                                <p class="text-gray-600">Kecamatan</p>
-                            </div>
-                            <div class="bg-primary/5 rounded-lg p-6 text-center">
-                                <svg class="w-8 h-8 text-primary mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064"/>
-                                </svg>
-                                <p class="text-3xl font-bold text-primary mb-1">1.605</p>
-                                <p class="text-gray-600">km² Luas Wilayah</p>
-                            </div>
-                            <div class="bg-primary/5 rounded-lg p-6 text-center">
-                                <svg class="w-8 h-8 text-primary mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
-                                </svg>
-                                <p class="text-3xl font-bold text-primary mb-1">1.3jt+</p>
-                                <p class="text-gray-600">Penduduk</p>
+                    {{-- Contact Info - Swiss Style --}}
+                    <section>
+                        <div class="flex items-baseline gap-4 border-b-4 border-primary pb-6 mb-8">
+                            <span class="font-heading text-6xl md:text-8xl font-black text-primary/10 leading-none select-none">02</span>
+                            <div class="flex flex-col">
+                                <h2 class="font-heading text-3xl md:text-4xl font-black text-primary uppercase tracking-tighter">Kontak <span class="text-accent">&</span> Informasi</h2>
+                                <p class="text-gray-500 font-medium mt-1 tracking-widest uppercase text-xs">Pemerintah Kabupaten Lombok Timur</p>
                             </div>
                         </div>
-                    </section>
 
-                    {{-- Contact Info --}}
-                    <section>
-                        <h2 class="font-heading text-2xl font-bold text-primary mb-4">Kontak</h2>
-                        <div class="space-y-4 text-gray-600">
-                            <div class="flex items-start gap-3">
-                                <svg class="w-5 h-5 text-primary flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                                </svg>
-                                <span>Jl. Pejanggik No. 70, Selong, Lombok Timur, NTB 83618</span>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="bg-gray-50 rounded-lg p-6 border border-gray-100">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                                        <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-primary text-sm uppercase tracking-wide mb-2">Alamat</h3>
+                                        <p class="text-gray-600 text-sm leading-relaxed">Jl. Pejanggik No. 70, Selong, Lombok Timur, NTB 83618</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="flex items-start gap-3">
-                                <svg class="w-5 h-5 text-primary flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                                </svg>
-                                <span>info@lomboktimurkab.go.id</span>
+
+                            <div class="bg-gray-50 rounded-lg p-6 border border-gray-100">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                                        <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-primary text-sm uppercase tracking-wide mb-2">Email</h3>
+                                        <p class="text-gray-600 text-sm leading-relaxed">info@lomboktimurkab.go.id</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="flex items-start gap-3">
-                                <svg class="w-5 h-5 text-primary flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-                                </svg>
-                                <span>(0376) 21450</span>
+
+                            <div class="bg-gray-50 rounded-lg p-6 border border-gray-100">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                                        <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-primary text-sm uppercase tracking-wide mb-2">Telepon</h3>
+                                        <p class="text-gray-600 text-sm leading-relaxed">(0376) 21450</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-gray-50 rounded-lg p-6 border border-gray-100">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                                        <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-primary text-sm uppercase tracking-wide mb-2">Jam Operasional</h3>
+                                        <p class="text-gray-600 text-sm leading-relaxed">Senin - Jumat: 08:00 - 16:00 WITA</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </section>

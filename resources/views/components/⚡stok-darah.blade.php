@@ -4,42 +4,41 @@ use App\Models\StokDarah;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 
-new class extends Component
-{
+new class extends Component {
     #[Computed]
     public function stocks()
     {
-        return StokDarah::latest('tanggal_update')->get();
+        return StokDarah::latest("tanggal_update")->get();
     }
 
     #[Computed]
     public function lastUpdate()
     {
-        return StokDarah::latest('tanggal_update')->value('tanggal_update');
+        return StokDarah::latest("tanggal_update")->value("tanggal_update");
     }
 
     public function getStatusColor($jumlah)
     {
         if ($jumlah >= 100) {
-            return 'bg-green-500';
+            return "bg-green-500";
         }
         if ($jumlah >= 50) {
-            return 'bg-yellow-500';
+            return "bg-yellow-500";
         }
 
-        return 'bg-red-500';
+        return "bg-red-500";
     }
 
     public function getStatusText($jumlah)
     {
         if ($jumlah >= 100) {
-            return 'Aman';
+            return "Aman";
         }
         if ($jumlah >= 50) {
-            return 'Sedang';
+            return "Sedang";
         }
 
-        return 'Kritis';
+        return "Kritis";
     }
 };
 ?>
@@ -52,12 +51,6 @@ new class extends Component
             <p class="text-xs text-gray-500">Update: {{ $this->lastUpdate->format('d M Y') }}</p>
             @endif
         </div>
-        <a href="{{ url('/data/stok-darah') }}" class="text-xs font-medium text-primary hover:text-primary-dark flex items-center gap-1">
-            Detail
-            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-            </svg>
-        </a>
     </div>
 
     @if($this->stocks->count() > 0)
