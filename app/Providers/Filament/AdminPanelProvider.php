@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\Auth\Login;
 use App\Filament\Widgets\AgendaHariIniWidget;
 use App\Filament\Widgets\BeritaPopulerWidget;
 use App\Filament\Widgets\BeritaStatsWidget;
@@ -40,7 +41,7 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
-            ->login()
+            ->login(Login::class)
             ->passwordReset()
             ->brandName($setting?->site_name ?? 'Portal Lombok Timur')
             ->brandLogo(fn () => view('filament.admin.logo', ['setting' => $setting]))

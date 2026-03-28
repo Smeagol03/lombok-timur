@@ -472,6 +472,16 @@ Semua routes telah ditambahkan di `routes/web.php`:
 | UserForm | ✅ Created (flat form structure) |
 | UsersTable | ✅ Created |
 
+### Custom Login Page
+
+| File | Deskripsi |
+|------|-----------|
+| `app/Filament/Pages/Auth/Login.php` | Custom login dengan link "Lupa Password?" |
+
+Fitur:- Link "Lupa Password?" mengarah ke `/admin/password-reset/request`
+- Menggunakan Filament's built-in password reset flow
+- Teks dalam Bahasa Indonesia
+
 ### Default Admin Credentials
 
 | Field | Value |
