@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Livewire;
+
 use App\Models\LinkBanner;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
@@ -12,13 +14,11 @@ class LinkBanners extends Component
     #[Computed]
     public function banners()
     {
-        return LinkBanner::active()
-            ->ordered()
-            ->paginate(6);
+        return LinkBanner::active()->ordered()->paginate(6);
     }
 
     public function render()
     {
-        return view('livewire.link-banners');
+        return view("livewire.link-banners");
     }
 }
