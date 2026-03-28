@@ -15,6 +15,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'Admin Portal',
                 'password' => Hash::make('password'),
+                'email_verified_at' => now(),
             ]
         );
 
@@ -23,5 +24,8 @@ class UserSeeder extends Seeder
         }
 
         $this->command->info('User seeded successfully.');
+        $this->command->info('Email: admin@lomboktimurkab.go.id');
+        $this->command->info('Password: password');
+        $this->command->warn('Please change the default password after deployment!');
     }
 }

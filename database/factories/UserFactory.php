@@ -12,16 +12,8 @@ use Illuminate\Support\Str;
  */
 class UserFactory extends Factory
 {
-    /**
-     * The current password being used by the factory.
-     */
     protected static ?string $password;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     public function definition(): array
     {
         return [
@@ -33,13 +25,45 @@ class UserFactory extends Factory
         ];
     }
 
-    /**
-     * Indicate that the model's email address should be unverified.
-     */
     public function unverified(): static
     {
         return $this->state(fn (array $attributes) => [
             'email_verified_at' => null,
         ]);
+    }
+
+    public function superAdmin(): static
+    {
+        return $this->afterCreating(function (User $user) {
+            $user->assignRole('Super Admin');
+        });
+    }
+
+    public function adminKonten(): static
+    {
+        return $this->afterCreating(function (User $user) {
+            $user->assignRole('Admin Konten');
+        });
+    }
+
+    public function adminLayanan(): static
+    {
+        return $this->afterCreating(function (User $user) {
+            $user->assignRole('Admin Layanan');
+        });
+    }
+
+    public function operatorHarga(): static
+    {
+        return $this->afterCreating(function (User $user) {
+            $user->assignRole('Operator Harga');
+        });
+    }
+
+    public function adminMedia(): static
+    {
+        return $this->afterCreating(function (User $user) {
+            $user->assignRole('Admin Media');
+        });
     }
 }
