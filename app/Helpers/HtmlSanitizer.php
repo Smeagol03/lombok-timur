@@ -103,18 +103,26 @@ class HtmlSanitizer
 
         $dom = new \DOMDocument;
         libxml_use_internal_errors(true);
-        $dom->loadHTML('<?xml encoding="UTF-8">'.$html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $dom->loadHTML('<?xml encoding="UTF-8"><body>'.$html.'</body>', LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
         libxml_clear_errors();
 
         if ($dom->documentElement === null) {
             return $html;
         }
 
-        $this->sanitizeNode($dom->documentElement);
+        $body = $dom->getElementsByTagName('body')->item(0);
+        if ($body === null) {
+            return $html;
+        }
 
-        $result = $dom->saveHTML($dom->documentElement);
+        $this->sanitizeNode($body);
 
-        return $result ?: $html;
+        $output = '';
+        foreach ($body->childNodes as $child) {
+            $output .= $dom->saveHTML($child);
+        }
+
+        return $output ?: $html;
     }
 
     protected function sanitizeNode(?\DOMNode $node): void

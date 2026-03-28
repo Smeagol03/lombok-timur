@@ -13,8 +13,9 @@ class SliderHeroSeeder extends Seeder
             [
                 'judul' => 'Selamat Datang di Portal Lombok Timur',
                 'subtitle' => 'Melayani dengan Transparan dan Profesional',
-                'gambar' => 'sliders/hero-1.jpg',
+                'url_type' => 'internal',
                 'url_link' => '/profil',
+                'url_link_external' => null,
                 'label_tombol' => 'Selengkapnya',
                 'urutan' => 1,
                 'is_active' => true,
@@ -22,8 +23,9 @@ class SliderHeroSeeder extends Seeder
             [
                 'judul' => 'Destinasi Wisata Lombok Timur',
                 'subtitle' => 'Keindahan Alam yang Memukau',
-                'gambar' => 'sliders/hero-2.jpg',
+                'url_type' => 'internal',
                 'url_link' => '/wisata',
+                'url_link_external' => null,
                 'label_tombol' => 'Lihat Wisata',
                 'urutan' => 2,
                 'is_active' => true,
@@ -31,8 +33,9 @@ class SliderHeroSeeder extends Seeder
             [
                 'judul' => 'Layanan Publik Online',
                 'subtitle' => 'Kemudahan Akses untuk Masyarakat',
-                'gambar' => 'sliders/hero-3.jpg',
+                'url_type' => 'internal',
                 'url_link' => '/layanan',
+                'url_link_external' => null,
                 'label_tombol' => 'Akses Layanan',
                 'urutan' => 3,
                 'is_active' => true,
@@ -43,7 +46,9 @@ class SliderHeroSeeder extends Seeder
             $slider = SliderHero::create([
                 'judul' => $sliderData['judul'],
                 'subtitle' => $sliderData['subtitle'],
+                'url_type' => $sliderData['url_type'],
                 'url_link' => $sliderData['url_link'],
+                'url_link_external' => $sliderData['url_link_external'],
                 'label_tombol' => $sliderData['label_tombol'],
                 'urutan' => $sliderData['urutan'],
                 'is_active' => $sliderData['is_active'],

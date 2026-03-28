@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             WisataSeeder::class,
             AgendaSeeder::class,
             SliderHeroSeeder::class,
+            LinkBannerSeeder::class,
             HargaPokokSeeder::class,
         ]);
     }

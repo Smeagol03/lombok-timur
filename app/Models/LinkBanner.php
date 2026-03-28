@@ -20,6 +20,10 @@ class LinkBanner extends Model implements HasMedia
     protected $fillable = [
         'nama',
         'url',
+        'url_type',
+        'url_external',
+        'description',
+        'icon',
         'gambar',
         'urutan',
         'is_active',
@@ -39,6 +43,13 @@ class LinkBanner extends Model implements HasMedia
                 $model->id = (string) Str::ulid();
             }
         });
+    }
+
+    public function getUrlAttribute(): string
+    {
+        return $this->url_type === 'external'
+            ? ($this->attributes['url_external'] ?? $this->attributes['url'])
+            : $this->attributes['url'];
     }
 
     public function registerMediaCollections(): void

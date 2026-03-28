@@ -22,6 +22,8 @@ class SliderHero extends Model implements HasMedia
         'subtitle',
         'gambar',
         'url_link',
+        'url_type',
+        'url_link_external',
         'label_tombol',
         'urutan',
         'is_active',
@@ -41,6 +43,15 @@ class SliderHero extends Model implements HasMedia
                 $model->id = (string) Str::ulid();
             }
         });
+    }
+
+    public function getUrlLinkAttribute(): string
+    {
+        if ($this->url_type === 'external') {
+            return $this->attributes['url_link_external'] ?? $this->attributes['url_link'];
+        }
+
+        return $this->attributes['url_link'];
     }
 
     public function registerMediaCollections(): void

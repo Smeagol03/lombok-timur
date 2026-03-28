@@ -1,4 +1,7 @@
 <!-- Footer - Clean Swiss Government Style -->
+{{-- Link Banners Section --}}
+<livewire:link-banners />
+
 <footer class="bg-primary text-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-12">
         {{-- Main Grid - 4 Columns --}}

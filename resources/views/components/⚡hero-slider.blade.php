@@ -101,6 +101,10 @@ new class extends Component
                         <img src="{{ $slide->getFirstMediaUrl('gambar') }}"
                              alt="{{ $slide->judul }}"
                              class="w-full h-full object-cover grayscale-[10%] hover:grayscale-0 transition-all duration-1000">
+                        @elseif($slide->gambar)
+                        <img src="{{ $slide->gambar }}"
+                             alt="{{ $slide->judul }}"
+                             class="w-full h-full object-cover grayscale-[10%] hover:grayscale-0 transition-all duration-1000">
                         @else
                         <img src="https://picsum.photos/1200/800?random={{ $slide->id }}"
                              alt="{{ $slide->judul }}"

@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\SliderHeroes\Schemas;
 
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Schema;
@@ -33,10 +34,36 @@ class SliderHeroForm
                     ->maxSize(5120)
                     ->helperText('Max 5MB. Resolusi: 1920x600px')
                     ->columnSpanFull(),
-                TextInput::make('url_link')
-                    ->label('URL Link')
+                Select::make('url_type')
+                    ->label('Tipe URL')
+                    ->options([
+                        'internal' => 'Halaman Website',
+                        'external' => 'URL Eksternal',
+                    ])
+                    ->default('internal')
+                    ->live()
+                    ->columnSpanFull(),
+                Select::make('url_link')
+                    ->label('Halaman Tujuan')
+                    ->placeholder('Pilih halaman website')
+                    ->options([
+                        '/' => 'Beranda',
+                        '/profil' => 'Profil Daerah',
+                        '/layanan' => 'Layanan Publik',
+                        '/wisata' => 'Destinasi Wisata',
+                        '/berita' => 'Berita',
+                        '/pengumuman' => 'Pengumuman',
+                        '/pencarian' => 'Pencarian',
+                    ])
+                    ->native(false)
+                    ->searchable()
+                    ->visible(fn (callable $get) => $get('url_type') === 'internal' || $get('url_type') === null)
+                    ->columnSpanFull(),
+                TextInput::make('url_link_external')
+                    ->label('URL Eksternal')
                     ->url()
                     ->placeholder('https://...')
+                    ->visible(fn (callable $get) => $get('url_type') === 'external')
                     ->columnSpanFull(),
                 TextInput::make('label_tombol')
                     ->label('Label Tombol')
