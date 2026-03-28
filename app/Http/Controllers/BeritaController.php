@@ -25,7 +25,7 @@ class BeritaController extends Controller
     public function show(string $slug)
     {
         $berita = Berita::where('slug', $slug)
-            ->with(['kategori', 'penulis'])
+            ->with(['kategori', 'penulis', 'media'])
             ->firstOrFail();
 
         $berita->increment('views');

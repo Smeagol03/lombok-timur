@@ -39,7 +39,7 @@ new class extends Component
     #[Computed]
     public function beritas()
     {
-        $query = Berita::published()->with(['kategori', 'penulis']);
+        $query = Berita::published()->with(['kategori', 'penulis', 'media']);
 
         if ($this->selectedCategory) {
             $query->where('kategori_id', $this->selectedCategory);

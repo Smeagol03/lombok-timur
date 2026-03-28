@@ -41,76 +41,80 @@ new class extends Component
         if ($this->type === 'all' || $this->type === 'berita') {
             $beritas = Berita::search($this->search)
                 ->take(10)
-                ->get()
-                ->map(function ($item) {
-                    return [
-                        'id' => $item->id,
-                        'type' => 'berita',
-                        'title' => $item->judul,
-                        'excerpt' => Str::limit(strip_tags($item->excerpt ?? $item->konten), 120),
-                        'url' => url('/berita/'.$item->slug),
-                        'date' => $item->published_at,
-                        'image' => $item->getFirstMediaUrl('thumbnail'),
-                    ];
-                });
-            $results = $results->merge($beritas);
+                ->get();
+            $beritas->load('media');
+
+            foreach ($beritas as $item) {
+                $results->push([
+                    'id' => $item->id,
+                    'type' => 'berita',
+                    'title' => $item->judul,
+                    'excerpt' => Str::limit(strip_tags($item->excerpt ?? $item->konten), 120),
+                    'url' => url('/berita/'.$item->slug),
+                    'date' => $item->published_at,
+                    'image' => $item->getFirstMediaUrl('thumbnail'),
+                ]);
+            }
         }
 
         // Search Pengumuman
         if ($this->type === 'all' || $this->type === 'pengumuman') {
             $pengumumen = Pengumuman::search($this->search)
                 ->take(10)
-                ->get()
-                ->map(function ($item) {
-                    return [
-                        'id' => $item->id,
-                        'type' => 'pengumuman',
-                        'title' => $item->judul,
-                        'excerpt' => Str::limit(strip_tags($item->konten), 120),
-                        'url' => url('/pengumuman/'.$item->slug),
-                        'date' => $item->tanggal_terbit,
-                        'image' => null,
-                    ];
-                });
-            $results = $results->merge($pengumumen);
+                ->get();
+            $pengumumen->load('media');
+
+            foreach ($pengumumen as $item) {
+                $results->push([
+                    'id' => $item->id,
+                    'type' => 'pengumuman',
+                    'title' => $item->judul,
+                    'excerpt' => Str::limit(strip_tags($item->konten), 120),
+                    'url' => url('/pengumuman/'.$item->slug),
+                    'date' => $item->tanggal_terbit,
+                    'image' => null,
+                ]);
+            }
         }
 
         // Search Layanan
         if ($this->type === 'all' || $this->type === 'layanan') {
             $layanans = Layanan::search($this->search)
                 ->take(10)
-                ->get()
-                ->map(function ($item) {
-                    return [
-                        'id' => $item->id,
-                        'type' => 'layanan',
-                        'title' => $item->nama,
-                        'excerpt' => Str::limit($item->deskripsi, 120),
-                        'url' => url('/layanan/'.$item->slug),
-                        'date' => null,
-                        'image' => $item->getFirstMediaUrl('icon'),
-                    ];
-                });
-            $results = $results->merge($layanans);
+                ->get();
+            $layanans->load('media');
+
+            foreach ($layanans as $item) {
+                $results->push([
+                    'id' => $item->id,
+                    'type' => 'layanan',
+                    'title' => $item->nama,
+                    'excerpt' => Str::limit(strip_tags($item->deskripsi), 120),
+                    'url' => url('/layanan/'.$item->slug),
+                    'date' => null,
+                    'image' => $item->getFirstMediaUrl('icon'),
+                ]);
+            }
         }
 
         // Search Wisata
         if ($this->type === 'all' || $this->type === 'wisata') {
             $wisatas = Wisata::search($this->search)
                 ->take(10)
-                ->get()
-                ->map(function ($item) {
-                    return [
-                        'id' => $item->id,
-                        'type' => 'wisata',
-                        'title' => $item->nama,
-                        'excerpt' => Str::limit(strip_tags($item->deskripsi), 120),
-                        'url' => url('/wisata/'.$item->slug),
-                        'date' => null,
-                        'image' => $item->getFirstMediaUrl('foto_utama'),
-                    ];
-                });
-            $results = $results->merge($wisatas);
+                ->get();
+            $wisatas->load('media');
+
+            foreach ($wisatas as $item) {
+                $results->push([
+                    'id' => $item->id,
+                    'type' => 'wisata',
+                    'title' => $item->nama,
+                    'excerpt' => Str::limit(strip_tags($item->deskripsi), 120),
+                    'url' => url('/wisata/'.$item->slug),
+                    'date' => null,
+                    'image' => $item->getFirstMediaUrl('foto_utama'),
+                ]);
+            }
         }
 
         return $results->sortByDesc('date')->values();

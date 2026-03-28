@@ -85,7 +85,7 @@
 
                     {{-- Description --}}
                     <div class="prose prose-lg max-w-none prose-headings:font-heading prose-headings:text-primary">
-                        {!! nl2br(e($wisata->deskripsi)) !!}
+                        @sanitized($wisata->deskripsi)
                     </div>
 
                     {{-- Gallery --}}

@@ -29,7 +29,7 @@ new class extends Component
 
     protected function getNewsQuery()
     {
-        $query = Berita::published()->with('kategori');
+        $query = Berita::published()->with(['kategori', 'media']);
 
         if ($this->selectedCategory) {
             $query->where('kategori_id', $this->selectedCategory);

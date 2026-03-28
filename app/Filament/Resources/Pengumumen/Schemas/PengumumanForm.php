@@ -3,8 +3,8 @@
 namespace App\Filament\Resources\Pengumumen\Schemas;
 
 use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Schema;
@@ -49,10 +49,9 @@ class PengumumanForm
                     ])
                     ->placeholder('Tulis konten...')
                     ->columnSpanFull(),
-                FileUpload::make('lampiran')
+                SpatieMediaLibraryFileUpload::make('lampiran')
                     ->label('File Lampiran')
-                    ->directory('pengumuman/lampiran')
-                    ->visibility('public')
+                    ->collection('lampiran')
                     ->acceptedFileTypes(['application/pdf', 'image/*'])
                     ->maxSize(10240)
                     ->helperText('Max 10MB. PDF, JPG, PNG')

@@ -17,7 +17,7 @@ new class extends Component
     #[Computed]
     public function wisatas()
     {
-        $query = Wisata::query();
+        $query = Wisata::query()->with('media');
 
         if ($this->selectedKecamatan) {
             $query->where('kecamatan', $this->selectedKecamatan);

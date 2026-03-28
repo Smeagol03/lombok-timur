@@ -3,9 +3,9 @@
 namespace App\Filament\Resources\Beritas\Schemas;
 
 use Filament\Forms\Components\DateTimePicker;
-use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -47,12 +47,11 @@ class BeritaForm
                     ->searchable()
                     ->preload()
                     ->columnSpanFull(),
-                FileUpload::make('thumbnail')
+                SpatieMediaLibraryFileUpload::make('thumbnail')
                     ->label('Thumbnail')
+                    ->collection('thumbnail')
                     ->image()
                     ->imageEditor()
-                    ->directory('berita/thumbnails')
-                    ->visibility('public')
                     ->maxSize(2048)
                     ->helperText('Max 2MB. JPG, PNG, WebP')
                     ->columnSpanFull(),

@@ -75,7 +75,7 @@ new class extends Component
                     </h3>
                     
                     <p class="text-gray-600 text-sm flex-grow line-clamp-3">
-                        {{ Str::limit($layanan->deskripsi, 120) }}
+                        {{ Str::limit(strip_tags($layanan->deskripsi), 120) }}
                     </p>
                     
                     @if($layanan->dinas_terkait)

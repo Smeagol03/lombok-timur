@@ -97,20 +97,32 @@ class HtmlSanitizer
 
     protected function sanitizeAttributes(string $html): string
     {
+        if (empty(trim($html))) {
+            return '';
+        }
+
         $dom = new \DOMDocument;
         libxml_use_internal_errors(true);
         $dom->loadHTML('<?xml encoding="UTF-8">'.$html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
         libxml_clear_errors();
 
+        if ($dom->documentElement === null) {
+            return $html;
+        }
+
         $this->sanitizeNode($dom->documentElement);
 
         $result = $dom->saveHTML($dom->documentElement);
 
-        return $result ?: '';
+        return $result ?: $html;
     }
 
-    protected function sanitizeNode(\DOMNode $node): void
+    protected function sanitizeNode(?\DOMNode $node): void
     {
+        if ($node === null) {
+            return;
+        }
+
         if ($node->nodeType === XML_ELEMENT_NODE) {
             $element = $node;
             $tagName = strtolower($element->nodeName);

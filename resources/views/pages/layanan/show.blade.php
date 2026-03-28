@@ -63,7 +63,7 @@
                 <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 sm:p-8 md:p-10">
                     {{-- Description --}}
                     <div class="prose prose-lg max-w-none">
-                        {!! nl2br(e($layanan->deskripsi)) !!}
+                        @sanitized($layanan->deskripsi)
                     </div>
 
                     {{-- External Link Button --}}
@@ -95,7 +95,7 @@
                                     {{ $related->nama }}
                                 </h4>
                                 <p class="text-xs sm:text-sm text-gray-500 mt-1 line-clamp-2">
-                                    {{ Str::limit($related->deskripsi, 60) }}
+                                    {{ Str::limit(strip_tags($related->deskripsi), 60) }}
                                 </p>
                             </a>
                             @endforeach

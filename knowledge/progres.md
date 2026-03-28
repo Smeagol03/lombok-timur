@@ -528,6 +528,73 @@ Semua routes telah ditambahkan di `routes/web.php`:
 
 ---
 
+## Media Library Form Fixes ✅
+
+**Tanggal:** 2026-03-28  
+**Status:** Selesai
+
+### Masalah
+
+Filament Forms menggunakan `FileUpload` biasa, sedangkan views menggunakan `getFirstMediaUrl()` dan `getMedia()` dari Spatie Media Library. Ini menyebabkan gambar/file tidak tampil di frontend.
+
+### Perubahan Forms
+
+| File | Sebelum | Sesudah |
+|------|---------|---------|
+| `WisataForm.php` | `FileUpload::make('foto_utama')` | `SpatieMediaLibraryFileUpload::make('foto_utama')->collection('foto_utama')` |
+| `WisataForm.php` | `FileUpload::make('galeri')` | `SpatieMediaLibraryFileUpload::make('galeri')->collection('galeri')` |
+| `BeritaForm.php` | `FileUpload::make('thumbnail')` | `SpatieMediaLibraryFileUpload::make('thumbnail')->collection('thumbnail')` |
+| `PengumumanForm.php` | `FileUpload::make('lampiran')` | `SpatieMediaLibraryFileUpload::make('lampiran')->collection('lampiran')` |
+
+### Perubahan Views
+
+| File | Sebelum | Sesudah |
+|------|---------|---------|
+| `wisata/show.blade.php` | `{!! nl2br(e($wisata->deskripsi)) !!}` | `@sanitized($wisata->deskripsi)` |
+
+### Model Media Collections
+
+| Model | Collection | Type |
+|-------|------------|------|
+| Wisata | `foto_utama` | Single file, image |
+| Wisata | `galeri` | Multiple files, images |
+| Berita | `thumbnail` | Single file, image |
+| Pengumuman | `lampiran` | Multiple files, PDF/images |
+
+---
+
+## Media Library Eager Loading Optimization ✅
+
+**Tanggal:** 2026-03-28  
+**Status:** Selesai
+
+### Masalah
+
+Komponen yang menggunakan `getFirstMediaUrl()` dan `getMedia()` tidak melakukan eager loading relasi `media`, menyebabkan N+1 query problem dan gambar tidak tampil optimal.
+
+### Perubahan Eager Loading
+
+| File | Sebelum | Sesudah |
+|------|---------|---------|
+| `⚡berita-terbaru.blade.php` | `with('kategori')` | `with(['kategori', 'media'])` |
+| `⚡berita-list.blade.php` | `with(['kategori', 'penulis'])` | `with(['kategori', 'penulis', 'media'])` |
+| `⚡wisata-gallery.blade.php` | No eager loading | `with('media')` |
+| `BeritaController.php` | `with(['kategori', 'penulis'])` | `with(['kategori', 'penulis', 'media'])` |
+| `⚡pencarian.blade.php` | Scout search tanpa eager load | Added `$results->load('media')` after Scout search |
+
+### Sudah Benar (Tidak Perlu Diubah)
+
+| File | Status |
+|------|--------|
+| `⚡wisata-list.blade.php` | ✅ Sudah `with('media')` |
+| `⚡pengumuman-list.blade.php` | ✅ Sudah `with('media')` |
+| `⚡layanan-list.blade.php` | ✅ Sudah `with('media')` |
+| `⚡hero-slider.blade.php` | ✅ Sudah `with('media')` |
+| `WisataController.php` | ✅ Sudah `with('media')` |
+| `PengumumanController.php` | ✅ Sudah `with('media')` |
+
+---
+
 ## Catatan Penting
 
 1. **Livewire 4** sudah include Alpine.js, tidak perlu install terpisah

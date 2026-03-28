@@ -2,8 +2,8 @@
 
 namespace App\Filament\Resources\Wisatas\Schemas;
 
-use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 
@@ -59,21 +59,19 @@ class WisataForm
                     ->maxLength(255)
                     ->placeholder('Alamat lengkap...')
                     ->columnSpanFull(),
-                FileUpload::make('foto_utama')
+                SpatieMediaLibraryFileUpload::make('foto_utama')
                     ->label('Foto Utama')
+                    ->collection('foto_utama')
                     ->image()
                     ->imageEditor()
-                    ->directory('wisata/foto')
-                    ->visibility('public')
                     ->maxSize(2048)
-                    ->helperText('Max 2MB')
+                    ->helperText('Max 2MB. JPG, PNG, WebP')
                     ->columnSpanFull(),
-                FileUpload::make('galeri')
+                SpatieMediaLibraryFileUpload::make('galeri')
                     ->label('Galeri Foto')
+                    ->collection('galeri')
                     ->image()
                     ->multiple()
-                    ->directory('wisata/galeri')
-                    ->visibility('public')
                     ->maxFiles(10)
                     ->helperText('Max 10 foto')
                     ->columnSpanFull(),
